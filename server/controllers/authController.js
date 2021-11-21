@@ -3,6 +3,7 @@ import asyncHandler from "../middleware/async.js";
 import User from "../models/User.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
+
 /*
   @desc:  Register User
   @route: POST /api/v1/auth/register
@@ -188,4 +189,5 @@ export {
   resetPassword,
   updateDetails,
   updatePassword,
+  sendTokenResponse,
 };

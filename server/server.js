@@ -7,7 +7,8 @@ import fileupload from "express-fileupload";
 import path from "path";
 
 // import routes
-import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
 
 // import middleware
 import errorHandler from "./middleware/error.js";
@@ -34,7 +35,9 @@ const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "public")));
 
 // API Routes
-app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
+
 // Init Middleware
 // Has to be after routes, or the controllers cant use the middleware
 app.use(errorHandler);
