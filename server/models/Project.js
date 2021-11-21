@@ -8,6 +8,7 @@ const ProjectSchema = new mongoose.Schema(
       required: [true, "Please add a project title"],
       trim: true,
       maxlength: [100, "Project Name cannot exceed 100 characters"],
+      unique: true,
     },
     // url friendly version of {name}
     slug: String,

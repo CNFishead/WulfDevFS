@@ -6,7 +6,7 @@ import crypto from "crypto";
 
 /*
   @desc:  Register User
-  @route: POST /api/v1/auth/register
+  @route: POST /api/auth/register
   @access Public
 */
 const register = asyncHandler(async (req, res, next) => {
@@ -24,7 +24,7 @@ const register = asyncHandler(async (req, res, next) => {
 
 /*
   @desc:  Auth User
-  @route: POST /api/v1/auth/register
+  @route: POST /api/auth/register
   @access Public
 */
 const login = asyncHandler(async (req, res, next) => {
@@ -50,7 +50,7 @@ const login = asyncHandler(async (req, res, next) => {
 });
 
 /* @desc   Get current logged in user
-   @route  POST /api/v1/auth/me
+   @route  POST /api/auth/me
    @access Private
  */
 const getMe = asyncHandler(async (req, res, nex) => {
@@ -62,7 +62,7 @@ const getMe = asyncHandler(async (req, res, nex) => {
 });
 
 /* @desc   Update password
-   @route  POST /api/v1/auth/updatepassword
+   @route  POST /api/auth/updatepassword
    @access Private
  */
 const updatePassword = asyncHandler(async (req, res, nex) => {
@@ -81,7 +81,7 @@ const updatePassword = asyncHandler(async (req, res, nex) => {
 });
 
 /* @desc   Update user details
-   @route  PUT /api/v1/auth/updatedetails
+   @route  PUT /api/auth/updatedetails
    @access Private
  */
 const updateDetails = asyncHandler(async (req, res, nex) => {
@@ -101,7 +101,7 @@ const updateDetails = asyncHandler(async (req, res, nex) => {
 });
 
 /* @desc    Forgot password
-   @route   POST /api/v1/auth/forgotpassword
+   @route   POST /api/auth/forgotpassword
    @access  Public
  */
 const forgotPassword = asyncHandler(async (req, res, next) => {
@@ -116,7 +116,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
   // Create reset url
   const resetUrl = `${req.protocol}://${req.get(
     "host"
-  )}/api/v1/auth/resetpassword/${resetToken}`;
+  )}/api/auth/resetpassword/${resetToken}`;
 
   const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
   try {
@@ -136,7 +136,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
 });
 
 /* @desc    Reset Password
-   @route   PUT /api/v1/auth/resetpassword/:resettoken
+   @route   PUT /api/auth/resetpassword/:resettoken
    @access  Public
  */
 const resetPassword = asyncHandler(async (req, res, nex) => {

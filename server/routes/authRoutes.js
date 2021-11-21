@@ -12,8 +12,9 @@ const router = express.Router();
 import { protect, authorize } from "../middleware/auth.js";
 
 
-router.route("/register").post(register);
+// router.route("/register").post(register);
 router.route("/login").post(login);
+
 // Want protect and admin for all routes.
 // anything below these routes, will use these middlewares.
 // this is useful if ALL routes need a specific middleware.
