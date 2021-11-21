@@ -9,6 +9,7 @@ import path from "path";
 // import routes
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
+import certRoutes from "./routes/certRoutes.js";
 
 // import middleware
 import errorHandler from "./middleware/error.js";
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
+app.use("/api/certs", certRoutes);
 
 // Init Middleware
 // Has to be after routes, or the controllers cant use the middleware

@@ -7,7 +7,7 @@ const CertificateSchema = new mongoose.Schema(
       required: [true, "Please add award title"],
       trim: true,
     },
-    issuing_authority: {
+    issuingAuthority: {
       type: String,
       required: true,
       trim: true,

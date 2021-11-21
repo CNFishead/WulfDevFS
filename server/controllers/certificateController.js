@@ -1,79 +1,79 @@
 import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/async.js";
-import Project from "../models/Project.js";
+import Certificate from "../models/Certificate.js";
 import path from "path";
 import slugify from "slugify";
 
 /*
-  @Desc:   Return All projects
-  @Route:  GET /api/projects
+  @Desc:   Return all Certificates
+  @Path:   GET /api/cert
   @Access: Public
 */
-export const getProjects = asyncHandler(async (req, res, next) => {
+export const getCertificates = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
 /*
-  @Desc:   Return A single project
-  @Route:  GET /api/projects
+  @Desc:   Return A single cert
+  @Route:  GET /api/cert
   @Access: Private
 */
-export const getProject = asyncHandler(async (req, res, next) => {
-  const data = await Project.findById(req.params.id);
+export const getCertificate = asyncHandler(async (req, res, next) => {
+  const data = await Certificate.findById(req.params.id);
   if (!data) {
     return next(
       // Correctly formatted, but not in the database
-      new ErrorResponse(`No Project Found with id: ${req.params.id}`, 404)
+      new ErrorResponse(`No Certificate Found with id: ${req.params.id}`, 404)
     );
   }
   res.status(200).json({ success: true, data: data });
 });
 
 /* 
-  @Desc:   Creates a new project in the database
-  @Route:  POST /api/projects
+  @Desc:   Creates a new certificate in the database
+  @Route:  POST /api/cert
   @Access: Private/Admin
 */
-export const createProject = asyncHandler(async (req, res, next) => {
-  const newProject = await Project.create(req.body);
-  if (!newProject) {
+export const createCert = asyncHandler(async (req, res, next) => {
+  const newCert = await Certificate.create(req.body);
+  if (!newCert) {
     return next(
       new ErrorResponse(
-        `There was a problem with creating the project, try again please`,
+        `There was a problem with creating the cert, try again please`,
         400
       )
     );
   }
   res.status(200).json({
     success: true,
-    data: newProject,
+    data: newCert,
   });
 });
 
 /* 
-  @Desc:   Updates a project in the database
-  @Route:  PUT /api/projects/:id
+  @Desc:   Updates a cert in the database
+  @Route:  PUT /api/cert/:id
   @Access: Private/Admin
 */
-export const updateProject = asyncHandler(async (req, res, next) => {
-  // Find the project from the id
-  let project = await Project.findById(req.params.id);
-  if (!project) {
+export const updateCert = asyncHandler(async (req, res, next) => {
+  // Find the cert from the id
+  let cert = await Certificate.findById(req.params.id);
+  if (!cert) {
     return next(
-      new ErrorResponse(`No project found with ID: ${req.params.id}`, 404)
+      new ErrorResponse(`No cert found with ID: ${req.params.id}`, 404)
     );
   }
   // Make sure user is admin
   if (req.user.role !== "admin") {
     return next(
       new ErrorResponse(
-        `User: ${req.user.id} is not authorized to update this project`,
+        `User: ${req.user.id} is not authorized to update this cert`,
         401
       )
     );
   }
-  // find and update the project with the req.body
-  project = await Project.findByIdAndUpdate(req.params.id, req.body, {
+  // find and update the cert with the req.body
+  cert = await Certificate.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
     new: true,
   });
@@ -81,49 +81,49 @@ export const updateProject = asyncHandler(async (req, res, next) => {
 });
 
 /* 
-  @Desc:   Updates a project in the database
-  @Route:  PUT /api/projects/:id
+  @Desc:   Updates a cert in the database
+  @Route:  PUT /api/cert/:id
   @Access: Private/Admin
 */
-export const deleteProject = asyncHandler(async (req, res, next) => {
-  // Find the project from the id
-  let project = await Project.findById(req.params.id);
-  if (!project) {
+export const deleteCert = asyncHandler(async (req, res, next) => {
+  // Find the cert from the id
+  let cert = await Certificate.findById(req.params.id);
+  if (!cert) {
     return next(
-      new ErrorResponse(`No project found with ID: ${req.params.id}`, 404)
+      new ErrorResponse(`No cert found with ID: ${req.params.id}`, 404)
     );
   }
   // Make sure user is admin
   if (req.user.role !== "admin") {
     return next(
       new ErrorResponse(
-        `User: ${req.user.id} is not authorized to delete This project`,
+        `User: ${req.user.id} is not authorized to delete This cert`,
         401
       )
     );
   }
 
-  // find and update the project with the req.body
-  project = await Project.findByIdAndDelete(req.params.id);
+  // find and update the cert with the req.body
+  cert = await Certificate.findByIdAndDelete(req.params.id);
   res.status(200).json({ success: true });
 });
 
 /* 
-  @Desc:   Uploads a photo for the requested project
-  @Route:  POST /api/projects
+  @Desc:   Uploads a photo for the requested cert
+  @Route:  POST /api/cert
   @Access: Private/Admin
 */
 export const uploadPhoto = asyncHandler(async (req, res, next) => {
-  const project = await Project.findById(req.params.id);
-  if (!project) {
+  const cert = await Certificate.findById(req.params.id);
+  if (!cert) {
     return next(
-      new ErrorResponse(`No Project Found with id: ${req.params.id}`, 404)
+      new ErrorResponse(`No cert Found with id: ${req.params.id}`, 404)
     );
   }
   // Make sure user is owner, or admin
   if (req.user.role !== "admin") {
     return next(
-      new ErrorResponse(`You are not authorized to update this project`, 401)
+      new ErrorResponse(`You are not authorized to update this cert`, 401)
     );
   }
 
@@ -155,7 +155,7 @@ export const uploadPhoto = asyncHandler(async (req, res, next) => {
     `-photo${path.parse(file.name).ext}`;
 
   file.mv(
-    `${process.env.FILE_UPLOAD_PATH}/images/${file.name}`,
+    `${process.env.FILE_UPLOAD_PATH}/certificates/${file.name}`,
     async (err) => {
       if (err) {
         console.error(err);
@@ -167,15 +167,15 @@ export const uploadPhoto = asyncHandler(async (req, res, next) => {
       // if you go to (http://localhost:5000/uploads/:filename) itll display the image.
       // In production change localhost to whatever the servername is and itll serve up the image from the uploads
       // folder
-      console.log(`${process.env.FILE_UPLOAD_PATH}/images/${file.name}`);
+      console.log(`${process.env.FILE_UPLOAD_PATH}/${file.name}`);
       try {
-        await Project.findByIdAndUpdate(req.params.id, {
-          photo: `${process.env.SERVER_NAME}/images/${file.name}`,
+        await Certificate.findByIdAndUpdate(req.params.id, {
+          certificateImageUrl: `${process.env.SERVER_NAME}/certificates/${file.name}`,
         });
         // Tell the client the upload was successful and send back the file sharing link
         res.status(201).json({
           success: true,
-          data: `${process.env.FILE_UPLOAD_PATH}/images/${file.name}`,
+          data: `${process.env.FILE_UPLOAD_PATH}/${file.name}`,
         });
       } catch (e) {
         console.log(e);
