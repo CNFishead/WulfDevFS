@@ -30,7 +30,13 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// Allows use of the fileUpload middleware
 app.use(fileupload());
+// CORS
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 // API Routes
 app.use("/api/auth", authRoutes);
