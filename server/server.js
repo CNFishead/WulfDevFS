@@ -5,6 +5,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import fileupload from "express-fileupload";
 import path from "path";
+import cors from "cors";
 
 // import routes
 import authRoutes from "./routes/authRoutes.js";
@@ -33,10 +34,7 @@ if (process.env.NODE_ENV === "development") {
 // Allows use of the fileUpload middleware
 app.use(fileupload());
 // CORS
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
 
 // API Routes
 app.use("/api/auth", authRoutes);
