@@ -77,7 +77,7 @@ export const updateCert = asyncHandler(async (req, res, next) => {
     runValidators: true,
     new: true,
   });
-  res.status(200).json({ success: true, data: project });
+  res.status(200).json({ success: true, data: cert });
 });
 
 /* 

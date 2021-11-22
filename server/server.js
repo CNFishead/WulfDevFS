@@ -10,6 +10,7 @@ import path from "path";
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import certRoutes from "./routes/certRoutes.js";
+import expRoutes from "./routes/expRoutes.js";
 
 // import middleware
 import errorHandler from "./middleware/error.js";
@@ -31,14 +32,26 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(fileupload());
 
-// Set static folder
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "public")));
-
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/certs", certRoutes);
+app.use("/api/exp", expRoutes);
+
+// Set static folder
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "public")));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
 
 // Init Middleware
 // Has to be after routes, or the controllers cant use the middleware

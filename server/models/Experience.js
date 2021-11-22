@@ -6,6 +6,7 @@ const ExperienceSchema = new mongoose.Schema({
     required: [true, "Please add a Company name"],
     trim: true,
   },
+  location: { type: String, trim: true },
   jobTitle: {
     type: String,
     required: [true, "Please enter your Job title"],
