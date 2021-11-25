@@ -15,6 +15,10 @@ import expRoutes from "./routes/expRoutes.js";
 
 // import middleware
 import errorHandler from "./middleware/error.js";
+import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+import xss from "xss-clean";
+import hpp from "hpp";
 
 // Load env vars
 dotenv.config();
@@ -33,6 +37,14 @@ if (process.env.NODE_ENV === "development") {
 
 // Allows use of the fileUpload middleware
 app.use(fileupload());
+// Sanitize Data
+app.use(mongoSanitize());
+// Set Security headers
+app.use(helmet());
+// prevent XSS attacks
+app.use(xss());
+// Prevent hpp pollution
+app.use(hpp());
 // CORS
 app.use(cors());
 

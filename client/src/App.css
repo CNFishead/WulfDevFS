@@ -1,0 +1,60 @@
+/* Global styles */
+* {
+  box-sizing: border-box;
+  /* specific fonts */
+  font-family: "Nunito", sans-serif;
+  /* font-family: "Comforter", cursive;  */ /*This style is only for specific places commented out so its easy to find*/
+}
+body {
+  height: 100vh;
+  background: linear-gradient(120deg, #000b13 50%, rgba(0, 0, 0, 0) 75%),
+    linear-gradient(-60deg, #003b72 45%, rgba(0, 0, 0, 0) 75%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Navbar CSS */
+.navbar {
+  /* background: linear-gradient(130deg, #000b13 45%, rgba(0, 0, 0, 0) 75%),
+    linear-gradient(-90deg, #003b72 45%, rgba(0, 0, 0, 0) 75%); */
+  color: white;
+}
+
+.navbar-brand-logo {
+  padding: 5%;
+  background: linear-gradient(145deg, #003b72, #000b13);
+  border-radius: 50%;
+  margin: 10% 5%;
+}
+.navbar-brand-logo:hover {
+  transition: 0.5s;
+  box-shadow: 0 0 40px #52a8f8, 0 0 40px #52a8f8, 0 0 80px #52a8f8;
+}
+
+.navbar-signature {
+  font-family: "Comforter", cursive;
+  font-size: 2rem;
+  color: rgb(252, 202, 64);
+}
+
+.nav-links {
+  padding: 5%;
+  justify-content: space-around !important;
+}
+.nav-links a {
+  text-decoration: none;
+  width: 20%;
+  text-align: center;
+  border-radius: 54px;
+  background: linear-gradient(145deg, #033462, #033e75);
+  box-shadow: 26px 26px 52px #01172c, -6px -6px 40px #055dae;
+  font-size: 1.25rem;
+  padding: 1%;
+  color: white !important;
+}
+.nav-links a:hover {
+  color: rgb(252, 202, 64) !important;
+  transition: 1s;
+  background: #000;
+  box-shadow: 0 0 10px #52a8f8, 0 0 40px #52a8f8, 0 0 80px #52a8f8;
+}
