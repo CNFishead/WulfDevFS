@@ -40,7 +40,7 @@ app.use(fileupload());
 // Sanitize Data
 app.use(mongoSanitize());
 // Set Security headers
-app.use(helmet());
+// app.use(helmet());
 // prevent XSS attacks
 app.use(xss());
 // Prevent hpp pollution
