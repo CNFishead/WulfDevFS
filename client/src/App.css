@@ -48,25 +48,27 @@ body {
   -moz-text-fill-color: transparent;
 }
 .nav-links {
-  padding: 2.5%;
-  justify-content: space-around !important;
+  padding: 2%;
+  justify-content: space-between !important;
+  width: 100%;
 }
 .nav-links a {
   text-decoration: none;
-  width: 20%;
+  width: 16%;
   text-align: center;
-  border-radius: 54px;
+  border-radius: 10px;
   background: linear-gradient(145deg, #033462, #033e75);
-  box-shadow: 26px 26px 52px #01172c, -6px -6px 40px #055dae;
+  box-shadow: inset 14px 14px 20px #01172c, inset -6px -6px 40px #055dae;
   font-size: 1.25rem;
   padding: 1%;
+  margin: 5px auto;
   color: white;
 }
 .nav-links a:hover {
   color: #f3ec78;
   transition: 1s;
   background: #000;
-  box-shadow: 0 0 10px #52a8f8, 0 0 40px #52a8f8, 0 0 80px #52a8f8;
+  box-shadow: inset 0 0 10px #52a8f8, inset 0 0 20px #52a8f8, 0 0 80px #52a8f8;
   background-color: #f3ec78;
   background-image: linear-gradient(125deg, #0a0a00, #033e75);
   background-size: 100%;
@@ -110,7 +112,7 @@ footer {
   border-radius: 44px;
   /* background: linear-gradient(120deg, #000b13 50%, rgba(0, 0, 0, 0) 75%),
     linear-gradient(-60deg, #003b72 45%, rgba(0, 0, 0, 0) 75%); */
-  box-shadow: inset 10px 0px 5px #012138, inset -10px -0px 10px #000b13;
+  box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 10px #000b13;
   width: 75%;
   text-align: center;
   margin: 0 auto;
@@ -125,6 +127,27 @@ footer {
   position: relative;
 }
 
+/* ------------------------------------------------------- Login Screen ------------------------------------------------------------ */
+.styled-button {
+  text-decoration: none;
+  width: 20%;
+  text-align: center;
+  border-radius: 54px;
+  background: linear-gradient(145deg, #033462, #033e75);
+  box-shadow: inset 26px 26px 52px #01172c, -6px -6px 40px #055dae;
+  font-size: 1.25rem;
+  padding: 1%;
+  color: white;
+}
+.styled-button:hover {
+  color: #f3ec78;
+  transition: 0.5s;
+  /* background: #000; */
+  box-shadow: inset 0 0 10px #52a8f8, 0 0 40px #52a8f8, 0 0 80px #52a8f8;
+  /* background-color: #f3ec78; */
+  background-image: linear-gradient(160deg, #033e75, #0a0a00);
+  background-size: 100%;
+}
 /* ---------------------------------------------------Mobile Responsiveness--------------------------------------------------------- */
 @media (max-width: 1024px) {
   body {
