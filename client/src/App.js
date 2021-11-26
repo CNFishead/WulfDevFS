@@ -7,6 +7,7 @@ import "./App.css";
 // Screen imports
 import Home from "./screens/Home";
 import Header from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };
