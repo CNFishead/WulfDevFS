@@ -2,6 +2,7 @@ import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/async.js";
 import path from "path";
 import slugify from "slugify";
+import sharp from "sharp";
 
 /* 
   @Desc:   Uploads a photo to the images folder
