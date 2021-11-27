@@ -5,7 +5,7 @@ import {
   getProject,
   getProjects,
   updateProject,
-  uploadPhoto,
+  // uploadPhoto,
 } from "../controllers/projectController.js";
 import { protect, authorize } from "../middleware/auth.js";
 import advancedResults from "../middleware/advancedResults.js";
@@ -21,5 +21,6 @@ router.use(authorize("admin"));
 
 router.route("/").post(createProject);
 router.route("/:id").put(updateProject).delete(deleteProject).get(getProject);
-router.route("/:id/photo").put(uploadPhoto);
+// router.route("/:id/photo").put(uploadPhoto);
+
 export default router;

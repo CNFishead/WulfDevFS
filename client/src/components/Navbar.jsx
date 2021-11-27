@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Image, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Image, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
@@ -38,13 +38,28 @@ const Header = () => {
           </h6>
         </div>
       </Container>
-      <Container className="nav-links">
-        <Link to="/about">About</Link>
-        <Link to="/blog">Blog</Link>
-        <Link to="/projects">Projects</Link>
-        <Link to="/resume">Resume</Link>
-        {userInfo && <Link to="/adminpanel">Admin Panel</Link>}
-      </Container>
+      <Nav fill variant="tabs" className="nav-links">
+        <Nav.Item activeClass="active">
+          <Nav.Link as={Link} to="/about">
+            About
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/blog">Blog</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link as={Link} to="/projects">
+            Projects
+          </Nav.Link>
+        </Nav.Item>
+        {userInfo && (
+          <Nav.Item>
+            <Nav.Link as={Link} to="/admin">
+              Admin Screen
+            </Nav.Link>
+          </Nav.Item>
+        )}
+      </Nav>
     </nav>
   );
 };

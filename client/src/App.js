@@ -10,6 +10,8 @@ import LoginScreen from "./screens/LoginScreen";
 // Components
 import Header from "./components/Navbar";
 import Footer from "./components/Footer";
+import About from "./screens/About";
+import Projects from "./screens/Projects";
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/login" element={<LoginScreen />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
       </Routes>
       <Footer />

@@ -1,4 +1,4 @@
-/* Global styles */
+/* ------------------------------------------------------- Global Styles ------------------------------------------------------------ */
 * {
   box-sizing: border-box;
   /* specific fonts */
@@ -13,7 +13,7 @@ body {
   background-size: cover;
 }
 
-/* Navbar CSS */
+/* ------------------------------------------------------- Navbar CSS ------------------------------------------------------------ */
 .navbar {
   /* background: linear-gradient(130deg, #000b13 45%, rgba(0, 0, 0, 0) 75%),
     linear-gradient(-90deg, #003b72 45%, rgba(0, 0, 0, 0) 75%); */
@@ -48,23 +48,21 @@ body {
   -moz-text-fill-color: transparent;
 }
 .nav-links {
-  padding: 2%;
-  justify-content: space-between !important;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  border-bottom: turquoise !important;
 }
 .nav-links a {
   text-decoration: none;
-  width: 16%;
   text-align: center;
-  border-radius: 10px;
   background: linear-gradient(145deg, #033462, #033e75);
   box-shadow: inset 14px 14px 20px #01172c, inset -6px -6px 40px #055dae;
   font-size: 1.25rem;
-  padding: 1%;
-  margin: 5px auto;
+  padding: 1.5%;
   color: white;
 }
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a:active {
   color: #f3ec78;
   transition: 1s;
   background: #000;
@@ -74,7 +72,7 @@ body {
   background-size: 100%;
 }
 
-/* Footer CSS */
+/* ------------------------------------------------------- Footer Screen ------------------------------------------------------------ */
 footer {
   position: static;
   bottom: 0;
@@ -104,7 +102,7 @@ footer {
   box-shadow: 0 0 10px #52a8f8, 0 0 40px #52a8f8, 0 0 80px #52a8f8;
 }
 
-/* Typewriter CSS */
+/* ------------------------------------------------------- Typewriter CSS ------------------------------------------------------------ */
 .typeWriterParent {
   position: relative;
   display: block;
@@ -125,6 +123,30 @@ footer {
 .typeWriterIntro {
   color: #e6d5b8;
   position: relative;
+}
+
+/* ------------------------------------------------------- About Screen ------------------------------------------------------------ */
+.storyText {
+  color: #e6d5b8;
+  line-height: 1.4;
+  text-align: justify;
+  font-size: 1.5em;
+}
+.aboutMe {
+  width: 80%;
+  padding: 2.5%;
+}
+
+.aboutMe img {
+  width: 25%;
+  height: 50%;
+  opacity: 1;
+  border-radius: 50%;
+  float: left;
+  shape-outside: inset(1% round 50%);
+  shape-margin: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 /* ------------------------------------------------------- Login Screen ------------------------------------------------------------ */
@@ -161,6 +183,9 @@ footer {
     height: 30vh;
     margin-top: 10rem;
   }
+  .aboutMe img {
+    width: auto;
+  }
 }
 
 @media (max-width: 780px) {
@@ -185,6 +210,15 @@ footer {
   }
   body {
     height: 100%;
+  }
+  .aboutMe img {
+    display: block;
+    float: none;
+    width: 100%;
+    height: auto;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
   }
 }
 @media (max-width: 480px) {

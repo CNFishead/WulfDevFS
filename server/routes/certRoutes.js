@@ -5,7 +5,7 @@ import {
   getCertificate,
   getCertificates,
   updateCert,
-  uploadPhoto,
+  // uploadPhoto,
 } from "../controllers/certificateController.js";
 import { protect, authorize } from "../middleware/auth.js";
 import advancedResults from "../middleware/advancedResults.js";
@@ -22,5 +22,5 @@ router.use(authorize("admin"));
 
 router.route("/").post(createCert);
 router.route("/:id").put(updateCert).delete(deleteCert).get(getCertificate);
-router.route("/:id/photo").put(uploadPhoto);
+// router.route("/:id/photo").put(uploadPhoto);
 export default router;

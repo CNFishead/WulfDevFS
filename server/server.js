@@ -12,6 +12,7 @@ import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import certRoutes from "./routes/certRoutes.js";
 import expRoutes from "./routes/expRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 // import middleware
 import errorHandler from "./middleware/error.js";
@@ -53,6 +54,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/certs", certRoutes);
 app.use("/api/exp", expRoutes);
+app.use("/api/uploads", uploadRoutes);
 
 // Set static folder
 const __dirname = path.resolve();
