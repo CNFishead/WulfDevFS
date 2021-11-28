@@ -38,8 +38,8 @@ const Header = () => {
           </h6>
         </div>
       </Container>
-      <Nav fill variant="tabs" className="nav-links">
-        <Nav.Item activeClass="active">
+      <Nav fill className="nav-links">
+        <Nav.Item>
           <Nav.Link as={Link} to="/about">
             About
           </Nav.Link>

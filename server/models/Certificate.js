@@ -14,7 +14,7 @@ const CertificateSchema = new mongoose.Schema(
     },
     certificateImageUrl: {
       type: String,
-      default: "no-photo.jpg",
+      default: "certificates/no-photo.jpg",
     },
     dateOfCompletion: {
       type: Date,
