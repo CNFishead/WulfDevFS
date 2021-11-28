@@ -1,4 +1,4 @@
-import React, { useEffect, useParams, useState } from "react";
+import React, { useEffect, useParams } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -12,7 +12,6 @@ const Projects = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  const [desc, setDesc] = useState(false);
   const { loading, error, projects } = useSelector(
     (state) => state.getProjects
   );
