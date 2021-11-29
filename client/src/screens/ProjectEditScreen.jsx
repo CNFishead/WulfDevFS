@@ -15,7 +15,7 @@ const ProjectEditScreen = ({ match }) => {
   const { id } = useParams();
 
   const [name, setName] = useState("");
-  const [image, setImage] = useState("");
+  const [photo, setPhoto] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [liveProjectURL, setLiveProjectURL] = useState("");
   const [languages, setLanguages] = useState([]);
@@ -45,7 +45,7 @@ const ProjectEditScreen = ({ match }) => {
         dispatch(listProjectDetails(id));
       } else {
         setName(project.name);
-        setImage(project.photo);
+        setPhoto(project.photo);
         setGithubUrl(project.githubUrl);
         setLiveProjectURL(project.liveProjectURL);
         setLanguages(project.languages);
@@ -78,7 +78,7 @@ const ProjectEditScreen = ({ match }) => {
 
       //Once the post request is finished, setImage to data, setUploading to false, to remove Loader
       //Component
-      setImage(data.data);
+      setPhoto(data.data);
       setUploading(false);
     } catch (error) {
       console.error(error);
@@ -92,7 +92,7 @@ const ProjectEditScreen = ({ match }) => {
       updateProject({
         _id: id,
         name,
-        image,
+        photo,
         languages,
         description,
       })
@@ -112,7 +112,7 @@ const ProjectEditScreen = ({ match }) => {
             <h1 style={{ color: "white" }}>Edit Project</h1>
             <Container style={{ padding: "5%" }}>
               <h4 style={{ color: "white" }}>Project Image</h4>
-              <Image src={`/${image}`} fluid />
+              <Image src={`/${photo}`} fluid />
             </Container>
             <Form onSubmit={submitHandler} style={{ color: "black" }}>
               <Form.Group controlId="name">
@@ -158,7 +158,7 @@ const ProjectEditScreen = ({ match }) => {
                 </FloatingLabel>
               </Form.Group>
               <Form.Group controlId="image" className="mb-3">
-                <Form.Control type="text" value={image} />
+                <Form.Control type="text" value={photo} />
                 <Form.Control type="file" onChange={uploadFileHandler} />
                 {uploading && <Loader />}
               </Form.Group>
