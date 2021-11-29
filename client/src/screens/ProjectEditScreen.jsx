@@ -93,6 +93,8 @@ const ProjectEditScreen = ({ match }) => {
         _id: id,
         name,
         photo,
+        githubUrl,
+        liveProjectURL,
         languages,
         description,
       })
