@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 // actions
-import { listProjects } from "../actions/projectActions";
+import { listProjects, deleteProject } from "../actions/projectActions";
 import { Col, Container, Image, Row, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -16,16 +16,22 @@ const Projects = ({ match }) => {
     (state) => state.getProjects
   );
   const { userInfo } = useSelector((state) => state.userLogin);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = useSelector((state) => state.projectDelete);
 
-  const deleteHandler = () => {
-    console.log(`deleted`);
+  const deleteHandler = (id) => {
+    if (window.confirm("Are you sure")) {
+      dispatch(deleteProject(id));
+    }
   };
-
   useEffect(() => {
     console.log(projects);
     dispatch(listProjects(page));
     // eslint-disable-next-line
-  }, [dispatch, page]);
+  }, [dispatch, page, successDelete]);
 
   return (
     <>
@@ -35,6 +41,8 @@ const Projects = ({ match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Container>
+          {loadingDelete && <Loader />}
+          {errorDelete && <Message variant="danger">{errorDelete}</Message>}
           {projects.map((project) => {
             return (
               <Container fluid key={project._id} className="project-container">
@@ -70,13 +78,13 @@ const Projects = ({ match }) => {
                           <Nav.Item>
                             <Nav.Link
                               as={Link}
-                              to={`/projectedit/${project._id}`}
+                              to={`/admin/projectedit/${project._id}`}
                               className="project-link-edit"
                             >
                               <i className="fas fa-edit" /> Edit Project
                             </Nav.Link>
                           </Nav.Item>
-                          <Nav.Item onClick={deleteHandler}>
+                          <Nav.Item onClick={() => deleteHandler(project._id)}>
                             <Nav.Link href="" className="project-link-delete">
                               <i className="fas fa-trash-alt" /> Delete
                             </Nav.Link>

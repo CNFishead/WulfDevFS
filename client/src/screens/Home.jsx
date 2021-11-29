@@ -1,7 +1,7 @@
 import React from "react";
 //importing typewriter-effect
 import Typewriter from "typewriter-effect";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Home = () => {
   return (
@@ -34,7 +34,9 @@ const Home = () => {
             }}
           />
         </div>
-        <Row></Row>
+        <Row>
+          <Col></Col>
+        </Row>
       </div>
     </Container>
   );

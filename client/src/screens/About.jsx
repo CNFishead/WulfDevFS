@@ -5,7 +5,6 @@ const About = () => {
   return (
     <Container fluid className="aboutMe">
       <img
-        className="storyPhoto"
         src="/images/headshot.jpg"
         alt="profile pic"
       />
@@ -77,7 +76,7 @@ const About = () => {
         </p>
         <p className="storyText">
           As it would stand, running up to Dragons is likely the quickest way to
-          die in D&D. It became a running joke of how long my characters would
+          die in D&D. It became a running joke of how long Austin's characters would
           last but it was in this flurry of mistakes that Austin noticed
           something. character creation, is a long tedious process to do on
           paper... An idea was hatched to create a character creator program

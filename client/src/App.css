@@ -172,8 +172,8 @@ footer {
 .project-container {
   /* max-height: 680px; */
   border-radius: 54px;
-  background: linear-gradient(145deg, #033462, #033e75);
-  box-shadow: inset 26px 26px 25px #01172c, -6px -6px 20px #055dae;
+  /* background: linear-gradient(145deg, #033462, #033e75); */
+  box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
   padding: 5%;
   margin: 5% 0;
 }
@@ -245,6 +245,20 @@ footer {
   background-image: linear-gradient(125deg, #000000, #a80000) !important;
   background-size: 100%;
 }
+
+/* ---------------------------------------------------Admin Screen Page--------------------------------------------------------- */
+.admin-screen {
+  min-height: 1000px;
+  padding: 5%;
+}
+
+/* ---------------------------------------------------Project Edit Page--------------------------------------------------------- */
+
+.project-edit-container {
+  border-radius: 54px;
+  /* background: linear-gradient(145deg, #033462, #033e75); */
+  box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
+}
 /* ---------------------------------------------------Mobile Responsiveness--------------------------------------------------------- */
 @media (max-width: 1024px) {
   .typeWriterParent {
@@ -258,6 +272,9 @@ footer {
 }
 
 @media (max-width: 780px) {
+  .aboutMe img {
+    width: 50%;
+  }
   .nav-item {
     width: 50%;
   }

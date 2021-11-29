@@ -54,7 +54,7 @@ const Header = () => {
         </Nav.Item>
         {userInfo && (
           <Nav.Item>
-            <Nav.Link as={Link} to="/admin">
+            <Nav.Link as={Link} to="/admin/adminscreen">
               Admin Screen
             </Nav.Link>
           </Nav.Item>
