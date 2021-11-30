@@ -175,7 +175,7 @@ footer {
   /* background: linear-gradient(145deg, #033462, #033e75); */
   box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
   padding: 5%;
-  margin: 5% 0;
+  margin: 2.5% 0;
 }
 .project-container-title {
   text-align: center;
@@ -249,7 +249,7 @@ footer {
 /* ---------------------------------------------------Admin Screen Page--------------------------------------------------------- */
 .admin-screen {
   min-height: 1000px;
-  padding: 5%;
+  padding: 2.5%;
 }
 
 /* ---------------------------------------------------Project Edit Page--------------------------------------------------------- */

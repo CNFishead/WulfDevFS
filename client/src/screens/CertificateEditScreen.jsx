@@ -1,58 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { Container, Form, Button, FloatingLabel, Image } from "react-bootstrap";
+import { Container, FloatingLabel, Form, Button, Image } from "react-bootstrap";
+import FormContainer from "../components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { PROJECT_UPDATE_RESET } from "../constants/projectsContstants";
-import { listProjectDetails, updateProject } from "../actions/projectActions";
 import axios from "axios";
-// import FormContainer from "../components/FormContainer";
+// actions
+import {
+  listCertificateDetails,
+  updateCertificate,
+} from "../actions/certificateActions";
+// Components
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import FormContainer from "../components/FormContainer";
 
-const ProjectEditScreen = ({ match }) => {
+// constants
+import { CERTIFICATE_UPDATE_RESET } from "../constants/certConstants";
+const CertificateEditScreen = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [name, setName] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [githubUrl, setGithubUrl] = useState("");
-  const [liveProjectURL, setLiveProjectURL] = useState("");
-  const [languages, setLanguages] = useState([]);
-  const [description, setDescription] = useState("");
+  const [certificateImageUrl, setCertificateImageUrl] = useState("");
+  const [issuingAuthority, setIssuingAuthority] = useState("");
+  const [dateOfCompletion, setDateOfCompletion] = useState(Date);
   const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { loading, error, project } = useSelector(
-    (state) => state.projectDetails
+  const { loading, error, certificate } = useSelector(
+    (state) => state.certDetails
   );
 
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
-  } = useSelector((state) => state.projectUpdate);
+  } = useSelector((state) => state.certUpdate);
 
   const { userInfo } = useSelector((state) => state.userLogin);
+  function appendLeadingZeroes(n) {
+    if (n <= 9) {
+      return "0" + n;
+    }
+    return n;
+  }
 
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: PROJECT_UPDATE_RESET });
-      navigate("/projects");
+      dispatch({ type: CERTIFICATE_UPDATE_RESET });
+      navigate("/certificates");
     } else {
-      if (!project.name || project._id !== id) {
-        dispatch(listProjectDetails(id));
+      if (!certificate.name || certificate._id !== id) {
+        dispatch(listCertificateDetails(id));
       } else {
-        setName(project.name);
-        setPhoto(project.photo);
-        setGithubUrl(project.githubUrl);
-        setLiveProjectURL(project.liveProjectURL);
-        setLanguages(project.languages);
-        setDescription(project.description);
+        setName(certificate.name);
+        setCertificateImageUrl(certificate.certificateImageUrl);
+        let date = new Date(certificate.dateOfCompletion);
+        let formatted_date = `${date.getFullYear()}-${appendLeadingZeroes(
+          date.getMonth() + 1
+        )}-${appendLeadingZeroes(date.getDate() + 1)}`;
+        setDateOfCompletion(formatted_date);
+        setIssuingAuthority(certificate.issuingAuthority);
       }
     }
-  }, [navigate, id, successUpdate, dispatch, loading, project]);
+  }, [navigate, id, successUpdate, dispatch, loading, certificate]);
 
   const uploadFileHandler = async (e) => {
     // files, is an array, since we have the ability to upload multiple
@@ -78,7 +89,7 @@ const ProjectEditScreen = ({ match }) => {
 
       //Once the post request is finished, setImage to data, setUploading to false, to remove Loader
       //Component
-      setPhoto(data.data);
+      setCertificateImageUrl(data.data);
       setUploading(false);
     } catch (error) {
       console.error(error);
@@ -89,17 +100,16 @@ const ProjectEditScreen = ({ match }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      updateProject({
+      updateCertificate({
         _id: id,
         name,
-        photo,
-        githubUrl,
-        liveProjectURL,
-        languages,
-        description,
+        certificateImageUrl,
+        issuingAuthority,
+        dateOfCompletion,
       })
     );
   };
+
   return (
     <Container className="project-edit-container">
       <Container>
@@ -111,10 +121,10 @@ const ProjectEditScreen = ({ match }) => {
           <Message variant="danger">{error}</Message>
         ) : (
           <FormContainer>
-            <h1 style={{ color: "white" }}>Edit Project</h1>
+            <h1 style={{ color: "white" }}>Edit Certificate</h1>
             <Container style={{ padding: "5%" }}>
-              <h4 style={{ color: "white" }}>Project Image</h4>
-              <Image src={`${photo}`} fluid />
+              <h4 style={{ color: "white" }}>Certificate Image</h4>
+              <Image src={`${certificateImageUrl}`} fluid />
             </Container>
             <Form onSubmit={submitHandler} style={{ color: "black" }}>
               <Form.Group controlId="name">
@@ -131,73 +141,50 @@ const ProjectEditScreen = ({ match }) => {
                   ></Form.Control>
                 </FloatingLabel>
               </Form.Group>
-              <Form.Group controlId="githubUrl">
+              <Form.Group controlId="issuingAuthority">
                 <FloatingLabel
                   controlId="floatingInput"
-                  label="Github URL"
+                  label="Name of institution of Authority"
                   className="mb-3"
                 >
                   <Form.Control
                     type="text"
-                    value={githubUrl}
-                    placeholder="Github URL"
-                    onChange={(e) => setGithubUrl(e.target.value)}
+                    value={issuingAuthority}
+                    placeholder="Name of institution of Authority"
+                    onChange={(e) => setIssuingAuthority(e.target.value)}
                   ></Form.Control>
                 </FloatingLabel>
               </Form.Group>
-              <Form.Group controlId="liveProjectURL">
+              <Form.Group controlId="certificateImageUrl">
                 <FloatingLabel
                   controlId="floatingInput"
-                  label="Live Project Location"
+                  label="Image path"
                   className="mb-3"
                 >
                   <Form.Control
                     type="text"
-                    value={liveProjectURL}
+                    value={certificateImageUrl}
                     placeholder="Live Project Location"
-                    onChange={(e) => setLiveProjectURL(e.target.value)}
+                    onChange={(e) => setCertificateImageUrl(e.target.value)}
                   ></Form.Control>
                 </FloatingLabel>
               </Form.Group>
               <Form.Group controlId="image" className="mb-3">
-                <Form.Control type="text" value={photo} />
+                <Form.Control type="text" value={certificateImageUrl} />
                 <Form.Control type="file" onChange={uploadFileHandler} />
                 {uploading && <Loader />}
               </Form.Group>
-              <Form.Group controlId="languages">
+              <Form.Group controlId="dateOfCompletion">
                 <FloatingLabel
                   controlId="floatingInput"
-                  label="What Langauges/Stack did you use?"
+                  label="Date of Completion"
                 >
                   <Form.Control
-                    type="text"
-                    placeholder="What Langauges/Stack did you use?"
-                    value={languages}
-                    onChange={(e) => setLanguages(e.target.value.split(","))}
+                    type="date"
+                    placeholder=""
+                    value={dateOfCompletion}
+                    onChange={(e) => setDateOfCompletion(e.target.value)}
                   ></Form.Control>
-                  <Form.Text id="languagesHelpBlock" muted>
-                    Enter the values as comma (,) seperated values
-                  </Form.Text>
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group controlId="description">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Project Description"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    as="textarea"
-                    value={description}
-                    placeholder="Project Name"
-                    style={{ height: "100px" }}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></Form.Control>
-                  <Form.Text id="descriptionHelpBlock" muted>
-                    Please enter a good description of the project, it must be
-                    less than 500 characters. {500 - description.length}/500
-                    characters remaining
-                  </Form.Text>
                 </FloatingLabel>
               </Form.Group>
               <Button type="submit" variant="dark" style={{ width: "100%" }}>
@@ -211,4 +198,4 @@ const ProjectEditScreen = ({ match }) => {
   );
 };
 
-export default ProjectEditScreen;
+export default CertificateEditScreen;

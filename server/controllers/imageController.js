@@ -62,7 +62,7 @@ export const uploadPhoto = asyncHandler(async (req, res, next) => {
         // Tell the client the upload was successful and send back the file sharing link
         res.status(201).json({
           success: true,
-          data: `images/${file.name}`,
+          data: `/images/${file.name}`,
         });
       } catch (e) {
         console.log(e);

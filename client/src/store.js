@@ -12,6 +12,14 @@ import {
   projectDetailsReducer,
 } from "./reducers/projectsReducer";
 
+import {
+  certificateCreateReducer,
+  certificateListReducer,
+  certificateDeleteReducer,
+  certificateUpdateReducer,
+  certificateDetailsReducer,
+} from "./reducers/certReducer";
+
 const middleware = [thunk];
 
 const reducer = combineReducers({
@@ -21,6 +29,11 @@ const reducer = combineReducers({
   projectDelete: projectDeleteReducer,
   projectCreate: projectCreateReducer,
   projectDetails: projectDetailsReducer,
+  listCerts: certificateListReducer,
+  certUpdate: certificateUpdateReducer,
+  certDelete: certificateDeleteReducer,
+  certCreate: certificateCreateReducer,
+  certDetails: certificateDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

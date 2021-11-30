@@ -8,6 +8,7 @@ import About from "./screens/About";
 import Projects from "./screens/Projects";
 import AdminScreen from "./screens/AdminScreen";
 import ProjectEditScreen from "./screens/ProjectEditScreen";
+import CertificateEditScreen from "./screens/CertificateEditScreen";
 
 // Components
 import Header from "./components/Navbar";
@@ -21,9 +22,14 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/admin/projectedit/:id" element={<ProjectEditScreen />} />
+        <Route
+          path="/admin/certificate-edit/:id"
+          element={<CertificateEditScreen />}
+        />
         <Route path="/admin/adminscreen" element={<AdminScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/page/:pageNumber" element={<Projects />} exact />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
       </Routes>

@@ -1,20 +1,27 @@
-import React, { useEffect, useParams } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// components
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 // actions
 import { listProjects, deleteProject } from "../actions/projectActions";
 import { Col, Container, Image, Row, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Projects = ({ match }) => {
-  const page = useParams || 1;
+  const { pageNumber } = useParams() || 1;
+  const { keyword } = useParams();
 
   const dispatch = useDispatch();
 
-  const { loading, error, projects } = useSelector(
-    (state) => state.getProjects
-  );
+  const {
+    loading,
+    error,
+    projects,
+    page: projectPage,
+    pages,
+  } = useSelector((state) => state.getProjects);
   const { userInfo } = useSelector((state) => state.userLogin);
   const {
     loading: loadingDelete,
@@ -28,10 +35,9 @@ const Projects = ({ match }) => {
     }
   };
   useEffect(() => {
-    console.log(projects);
-    dispatch(listProjects(page));
+    dispatch(listProjects(keyword, pageNumber));
     // eslint-disable-next-line
-  }, [dispatch, page, successDelete]);
+  }, [dispatch, pageNumber, successDelete]);
 
   return (
     <>
@@ -43,6 +49,7 @@ const Projects = ({ match }) => {
         <Container>
           {loadingDelete && <Loader />}
           {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+
           {projects.map((project) => {
             return (
               <Container fluid key={project._id} className="project-container">
@@ -138,6 +145,13 @@ const Projects = ({ match }) => {
               </Container>
             );
           })}
+          <Row style={{ paddingRight: "2.5%" }}>
+            <Paginate
+              pages={pages}
+              page={projectPage}
+              keyword={keyword ? keyword : ""}
+            />
+          </Row>
         </Container>
       )}
     </>

@@ -10,7 +10,16 @@ import slugify from "slugify";
   @Access: Public
 */
 export const getCertificates = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
+  const keyword = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : {};
+  const count = await Certificate.countDocuments({ ...keyword });
+  const certificates = await Certificate.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ certificates, page, pages: Math.ceil(count / pageSize) });
 });
 
 /*

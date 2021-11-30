@@ -14,7 +14,7 @@ const ProjectSchema = new mongoose.Schema(
     slug: String,
     photo: {
       type: String,
-      default: "images/no-photo.jpg",
+      default: "/images/no-photo.jpg",
     },
     githubUrl: {
       type: String,
