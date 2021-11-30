@@ -28,7 +28,7 @@ const LoginScreen = ({ location }) => {
   };
 
   return (
-    <Container style={{ padding: "10%" }}>
+    <Container >
       <FormContainer>
         <h1 style={{ color: "white" }}>Admin Sign-in</h1>
         {error && <Message variant="danger">{error}</Message>}

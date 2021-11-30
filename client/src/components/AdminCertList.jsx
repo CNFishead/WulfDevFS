@@ -37,13 +37,13 @@ const AdminProjectsList = () => {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    project: createdProject,
+    certificate: createdCertificate,
   } = useSelector((state) => state.certCreate);
 
   useEffect(() => {
     dispatch({ type: CERTIFICATE_CREATE_RESET });
     if (successCreate) {
-      // navigate(`/admin/projectedit/${createdProject._id}`);
+      navigate(`/admin/certificate-edit/${createdCertificate._id}`);
     } else {
       dispatch(listCertificates(keyword, page));
     }
@@ -52,7 +52,7 @@ const AdminProjectsList = () => {
     userInfo,
     successDelete,
     successCreate,
-    createdProject,
+    createdCertificate,
     navigate,
     page,
     keyword,

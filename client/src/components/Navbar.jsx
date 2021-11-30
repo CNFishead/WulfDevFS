@@ -1,9 +1,13 @@
 import React from "react";
-import { Container, Image, Nav } from "react-bootstrap";
+import { Container, Image, Nav, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
 import logo from "../assets/Images/WulfBrandingLogoLightSmall.png";
+
+// Resume
+import resume from "../assets/data/AustinResume.docx";
+import { socials } from "../assets/data/socials";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -36,6 +40,19 @@ const Header = () => {
           >
             Austin Howard
           </h6>
+          <div className="social-links">
+            {socials.map((social, indx) => {
+              return (
+                <div key={indx} className="social-link">
+                  <a href={social.social_link}>
+                    <i
+                      className={`${social.social_fa_icon} social-link-icon`}
+                    />
+                  </a>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </Container>
       <Nav fill className="nav-links">
@@ -45,11 +62,16 @@ const Header = () => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/blog">Blog</Nav.Link>
+          <Nav.Link href="/certificates">Certificates</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link as={Link} to="/projects">
             Projects
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href={resume} download>
+            <i className="fas fa-file-download" /> Resume
           </Nav.Link>
         </Nav.Item>
         {userInfo && (
