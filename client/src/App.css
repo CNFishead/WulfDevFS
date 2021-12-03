@@ -286,6 +286,15 @@ h4 {
   /* background: linear-gradient(145deg, #033462, #033e75); */
   box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
 }
+
+/* ---------------------------------------------------Certificates Page --------------------------------------------------------- */
+.certificate-card {
+  background-color: rgba(0, 0, 0, 0) !important;
+  box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
+  text-align: center;
+  height: 100%;
+}
+
 /* ---------------------------------------------------Mobile Responsiveness--------------------------------------------------------- */
 @media (max-width: 1024px) {
   body {

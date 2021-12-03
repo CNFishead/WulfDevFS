@@ -35,11 +35,13 @@ const BlogEditScreen = () => {
   // eslint-disable-next-line
   const [uploading, setUploading] = useState(false);
   const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
+    EditorState.createWithContent(
+      draftToHtml(convertFromRaw(blog.content.blocks))
+    )
   );
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("");
   // Helper Functions go here
   // These functions handle the modal opening and closing.
   const handleClose = () => setShow(false);
@@ -78,11 +80,11 @@ const BlogEditScreen = () => {
       } else {
         // Set the state of the editor.
         setTitle(blog.blogTitle);
-        updateTextDescription(blog.content.blocks[0]);
+        console.log(title);
+        setContent(updateTextDescription(blog.content.blocks[0]));
       }
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch, navigate, successUpdate, title, updateTextDescription]);
 
   return (
     <Container>
@@ -103,7 +105,7 @@ const BlogEditScreen = () => {
               <Form.Control
                 type="name"
                 value={title}
-                placeholder="Project Name"
+                placeholder="palceholder"
                 onChange={(e) => setTitle(e.target.value)}
               ></Form.Control>
             </FloatingLabel>

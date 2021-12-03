@@ -6,7 +6,7 @@ import Message from "../components/Message";
 
 // actions
 import { listCertificates } from "../actions/certificateActions";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const Certificates = ({ match }) => {
@@ -50,18 +50,26 @@ const Certificates = ({ match }) => {
                   xl={4}
                   style={{
                     padding: "2%",
-                    fontSize: "1.25rem",
-                    fontWeight: "bold",
+                    backgroundColor: "rgba(0,0,0,0) !important",
                   }}
                 >
-                  <p style={{ textAlign: "center" }} className="gradient-text">
-                    {certificate.name}
-                  </p>
-                  <Image
-                    src={certificate.certificateImageUrl}
-                    alt={`${certificate.name}`}
-                    fluid
-                  />
+                  <Card className="certificate-card">
+                    <Card.Img
+                      variant="top"
+                      src={`${certificate.certificateImageUrl}`}
+                      fluid
+                    />
+                    <Card.Body>
+                      <Card.Title className="gradient-text">
+                        {certificate.issuingAuthority}
+                      </Card.Title>
+                      <Card.Text
+                        style={{ color: "white", fontWeight: "lighter" }}
+                      >
+                        {certificate.name}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </Col>
               );
             })}
