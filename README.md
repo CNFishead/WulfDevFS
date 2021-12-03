@@ -1,6 +1,7 @@
 # WulfDevFS
 
 A fullstack representation of my developers page
+homepage @: http://wulfdevpage.azurewebsites.net/
 
 ## Server Documentation
 
