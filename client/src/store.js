@@ -20,20 +20,36 @@ import {
   certificateDetailsReducer,
 } from "./reducers/certReducer";
 
+import {
+  blogCreateReducer,
+  blogDeleteReducer,
+  blogDetailsReducer,
+  blogListReducer,
+  blogUpdateReducer,
+} from "./reducers/blogReducer";
+
 const middleware = [thunk];
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
+  // Project Reducers
   getProjects: projectListReducer,
   projectUpdate: projectUpdateReducer,
   projectDelete: projectDeleteReducer,
   projectCreate: projectCreateReducer,
   projectDetails: projectDetailsReducer,
+  // Certificate reducers
   listCerts: certificateListReducer,
   certUpdate: certificateUpdateReducer,
   certDelete: certificateDeleteReducer,
   certCreate: certificateCreateReducer,
   certDetails: certificateDetailsReducer,
+  // Blog Reducers
+  listBlogs: blogListReducer,
+  blogUpdate: blogUpdateReducer,
+  blogDelete: blogDeleteReducer,
+  blogCreate: blogCreateReducer,
+  blogDetails: blogDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

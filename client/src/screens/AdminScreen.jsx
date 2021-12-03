@@ -9,6 +9,7 @@ import { PROJECT_CREATE_RESET } from "../constants/projectsContstants";
 // components
 import AdminCertList from "../components/AdminCertList";
 import AdminProjectsList from "../components/adminProjectsList";
+import AdminBlogList from "../components/AdminBlogList";
 
 const AdminScreen = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const AdminScreen = () => {
     <Container fluid className="admin-screen">
       <AdminProjectsList />
       <AdminCertList />
+      <AdminBlogList />
     </Container>
   );
 };

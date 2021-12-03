@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Image, Nav, Row } from "react-bootstrap";
+import { Container, Image, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
