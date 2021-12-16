@@ -2,8 +2,7 @@ import nodemailer from "nodemailer";
 
 const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
-    host: process.env.STMP_HOST,
-    port: process.env.STMP_PORT,
+    service: "hotmail",
     auth: {
       user: process.env.STMP_EMAIL,
       pass: process.env.STMP_PASSWORD,

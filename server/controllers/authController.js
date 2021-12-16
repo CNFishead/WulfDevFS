@@ -118,7 +118,9 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     "host"
   )}/api/auth/resetpassword/${resetToken}`;
 
-  const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+  const message =
+    `You are receiving this email because you (or someone else) has requested the reset of a password. \n` +
+    `Please Go to this link to reset password ${resetUrl}`;
   try {
     await sendEmail({
       email: user.email,
@@ -139,7 +141,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
    @route   PUT /api/auth/resetpassword/:resettoken
    @access  Public
  */
-const resetPassword = asyncHandler(async (req, res, nex) => {
+const resetPassword = asyncHandler(async (req, res, next) => {
   // Get hashed token
   const resetPassToken = crypto
     .createHash("sha256")

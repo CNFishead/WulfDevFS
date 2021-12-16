@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, FloatingLabel, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
@@ -28,7 +28,7 @@ const LoginScreen = ({ location }) => {
   };
 
   return (
-    <Container >
+    <Container>
       <FormContainer>
         <h1 style={{ color: "white" }}>Admin Sign-in</h1>
         {error && <Message variant="danger">{error}</Message>}
@@ -76,6 +76,15 @@ const LoginScreen = ({ location }) => {
             Sign-In
           </Button>
         </Form>
+        <Container style={{ paddingTop: "5%" }}>
+          <Link
+            style={{ textDecoration: "none" }}
+            className="gradient-text"
+            to="/resetpassword"
+          >
+            <span>Forgot Password</span>
+          </Link>
+        </Container>
       </FormContainer>
     </Container>
   );

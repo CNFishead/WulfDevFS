@@ -10,7 +10,7 @@ import { createBlog } from "../actions/blogActions";
 import { useNavigate, useParams } from "react-router";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import BlogTinyMce from "../components/BlogTinyMce";
+// import BlogTinyMce from "../components/BlogTinyMce";
 
 const Blog = () => {
   const navigate = useNavigate();
@@ -61,50 +61,50 @@ const Blog = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        // <Form style={{ padding: "8%" }} onSubmit={submitHandler}>
-        //   <Form.Group controlId="name">
-        //     <FloatingLabel
-        //       controlId="floatingInput"
-        //       label="Blog Title"
-        //       className="mb-3"
-        //     >
-        //       <Form.Control
-        //         type="name"
-        //         value={title}
-        //         placeholder="Project Name"
-        //         onChange={(e) => setTitle(e.target.value)}
-        //       ></Form.Control>
-        //     </FloatingLabel>
-        //   </Form.Group>
-        //   <div>
-        //     <Editor
-        //       editorState={editorState}
-        //       toolbarClassName="toolbarClassName"
-        //       wrapperClassName="rich-editor demo-wrapper"
-        //       editorClassName="editorClassName"
-        //       onEditorStateChange={updateTextDescription}
-        //     />
-        //   </div>
-        //   <Container style={{ paddingTop: "5%", textAlign: "center" }}>
-        //     <Button variant="primary" onClick={handleShow}>
-        //       See the article
-        //     </Button>
+        <Form style={{ padding: "8%" }} onSubmit={submitHandler}>
+          <Form.Group controlId="name">
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Blog Title"
+              className="mb-3"
+            >
+              <Form.Control
+                type="name"
+                value={title}
+                placeholder="Project Name"
+                onChange={(e) => setTitle(e.target.value)}
+              ></Form.Control>
+            </FloatingLabel>
+          </Form.Group>
+          <div>
+            <Editor
+              editorState={editorState}
+              toolbarClassName="toolbarClassName"
+              wrapperClassName="rich-editor demo-wrapper"
+              editorClassName="editorClassName"
+              onEditorStateChange={updateTextDescription}
+            />
+          </div>
+          <Container style={{ paddingTop: "5%", textAlign: "center" }}>
+            <Button variant="primary" onClick={handleShow}>
+              See the article
+            </Button>
 
-        //     <Modal show={show} onHide={handleClose}>
-        //       <Modal.Header closeButton>
-        //         <Modal.Title>{title}</Modal.Title>
-        //       </Modal.Header>
-        //       <Modal.Body>{parse(getHtml(editorState))}</Modal.Body>
-        //       <Button variant="secondary" onClick={handleClose}>
-        //         Keep Editing
-        //       </Button>
-        //       <Button variant="success" onClick={handleCreate}>
-        //         Create Post
-        //       </Button>
-        //     </Modal>
-        //   </Container>
-        // </Form>
-        <BlogTinyMce />
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>{title}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>{parse(getHtml(editorState))}</Modal.Body>
+              <Button variant="secondary" onClick={handleClose}>
+                Keep Editing
+              </Button>
+              <Button variant="success" onClick={handleCreate}>
+                Create Post
+              </Button>
+            </Modal>
+          </Container>
+        </Form>
+        // <BlogTinyMce />
       )}
     </Container>
   );

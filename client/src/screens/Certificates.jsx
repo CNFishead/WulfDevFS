@@ -6,7 +6,7 @@ import Message from "../components/Message";
 
 // actions
 import { listCertificates } from "../actions/certificateActions";
-import { Card, Col, Container, Image, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const Certificates = ({ match }) => {

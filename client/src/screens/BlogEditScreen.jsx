@@ -84,6 +84,7 @@ const BlogEditScreen = () => {
         setContent(updateTextDescription(blog.content.blocks[0]));
       }
     }
+    // eslint-disable-next-line
   }, [dispatch, navigate, successUpdate, title, updateTextDescription]);
 
   return (

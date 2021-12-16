@@ -9,7 +9,7 @@ import Projects from "./screens/Projects";
 import AdminScreen from "./screens/AdminScreen";
 import ProjectEditScreen from "./screens/ProjectEditScreen";
 import CertificateEditScreen from "./screens/CertificateEditScreen";
-// import BlogEditScreen from "./screens/BlogEditScreen";
+import BlogEditScreen from "./screens/BlogEditScreen";
 
 // Components
 import Header from "./components/Navbar";
@@ -17,17 +17,19 @@ import Header from "./components/Navbar";
 // css styles
 import "./App.css";
 import Certificates from "./screens/Certificates";
-// import Blog from "./screens/Blog";
-// import Blogs from "./screens/Blogs";
+import Blog from "./screens/Blog";
+import Blogs from "./screens/Blogs";
+import Reset from "./screens/Reset";
+import ResetPassword from "./screens/ResetPassword";
 
 const App = () => {
   return (
     <Router>
       <Header />
       <Routes>
-        {/* <Route path="/listblogs" element={<Blogs />} /> */}
-        {/* <Route path="/admin/blog" element={<Blog />} />
-        <Route path='/admin/blog-edit/:id' element={<BlogEditScreen />}/> */}
+        <Route path="/listblogs" element={<Blogs />} />
+        <Route path="/admin/blog" element={<Blog />} />
+        <Route path="/admin/blog-edit/:id" element={<BlogEditScreen />} />
         <Route path="/admin/projectedit/:id" element={<ProjectEditScreen />} />
         <Route
           path="/admin/certificate-edit/:id"
@@ -39,6 +41,11 @@ const App = () => {
         <Route path="/certificates" element={<Certificates />} />
         <Route path="/projects/page/:pageNumber" element={<Projects />} exact />
         <Route path="/about" element={<About />} />
+        <Route path="/resetpassword" element={<Reset />} />
+        <Route
+          path="/api/auth/resetpassword/:resettoken"
+          element={<ResetPassword />}
+        />
         <Route path="/" element={<Home />} />
       </Routes>
       {/* <Footer /> */}

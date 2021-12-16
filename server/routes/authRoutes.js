@@ -11,9 +11,10 @@ import {
 const router = express.Router();
 import { protect, authorize } from "../middleware/auth.js";
 
-
 // router.route("/register").post(register);
 router.route("/login").post(login);
+router.route("/forgotpassword").post(forgotPassword);
+router.route("/resetpassword/:resettoken").put(resetPassword);
 
 // Want protect and admin for all routes.
 // anything below these routes, will use these middlewares.
@@ -24,7 +25,5 @@ router.use(authorize("admin"));
 router.route("/me").get(protect, getMe);
 router.route("/updatedetails").put(protect, updateDetails);
 router.route("/updatepassword").put(protect, updatePassword);
-router.route("/forgotpassword").post(forgotPassword);
-router.route("/resetpassword/:resettoken").put(resetPassword);
 
 export default router;
