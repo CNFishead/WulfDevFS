@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/resetpassword" element={<Reset />} />
         <Route
-          path="/api/auth/resetpassword/:resettoken"
+          path="/auth/resetpassword/:resettoken"
           element={<ResetPassword />}
         />
         <Route path="/" element={<Home />} />

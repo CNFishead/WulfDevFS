@@ -116,7 +116,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
   // Create reset url
   const resetUrl = `${req.protocol}://${req.get(
     "host"
-  )}/api/auth/resetpassword/${resetToken}`;
+  )}/auth/resetpassword/${resetToken}`;
 
   const message =
     `You are receiving this email because you (or someone else) has requested the reset of a password. \n` +
