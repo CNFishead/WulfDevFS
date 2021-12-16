@@ -114,7 +114,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Create reset url
-  const resetUrl = `${req.protocol}://${req.get(
+  const resetUrl = `${req.protocol}s://${req.get(
     "host"
   )}/auth/resetpassword/${resetToken}`;
 
