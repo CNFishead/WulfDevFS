@@ -10,17 +10,19 @@ import AdminScreen from "./screens/AdminScreen";
 import ProjectEditScreen from "./screens/ProjectEditScreen";
 import CertificateEditScreen from "./screens/CertificateEditScreen";
 import BlogEditScreen from "./screens/BlogEditScreen";
-
-// Components
-import Header from "./components/Navbar";
-// import Footer from "./components/Footer";
-// css styles
-import "./App.css";
 import Certificates from "./screens/Certificates";
 import Blog from "./screens/Blog";
 import Blogs from "./screens/Blogs";
 import Reset from "./screens/Reset";
 import ResetPassword from "./screens/ResetPassword";
+
+// Components
+import Header from "./components/Navbar";
+// import Footer from "./components/Footer";
+
+
+// css styles
+import "./App.css";
 
 const App = () => {
   return (
