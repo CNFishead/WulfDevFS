@@ -1,8 +1,6 @@
 import ErrorResponse from "../utils/errorResponse.js";
 import asyncHandler from "../middleware/async.js";
 import Project from "../models/Project.js";
-import path from "path";
-import slugify from "slugify";
 
 /*
   @Desc:   Return All projects
@@ -10,13 +8,14 @@ import slugify from "slugify";
   @Access: Public
 */
 export const getProjects = asyncHandler(async (req, res, next) => {
-  const pageSize = 10;
+  const pageSize = 2;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }
     : {};
   const count = await Project.countDocuments({ ...keyword });
   const projects = await Project.find({ ...keyword })
+    .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ projects, page, pages: Math.ceil(count / pageSize) });

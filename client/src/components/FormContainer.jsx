@@ -3,9 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const FormContainer = ({ children }) => {
   return (
-    <Container style={{ padding: "2.5%", textAlign: "center" }}>
+    <Container style={{ padding: "2% 0", textAlign: "center" }}>
       <Row className="justify-content-md-center">
-        <Col xs={12} md={6}>
+        <Col xs={12} md={12} lg={8}>
           {children}
         </Col>
       </Row>

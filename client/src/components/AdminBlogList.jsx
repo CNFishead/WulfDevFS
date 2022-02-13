@@ -1,38 +1,45 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Button, Table, Col, Row, Container } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Col,
+  Row,
+  Container,
+  Pagination,
+} from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 // components
-import Message from "./Message";
 import Loader from "./Loader";
-// actions
-import { deleteBlog, listBlogs } from "../actions/blogActions";
+// actions/utilites
+import { deleteBlog } from "../actions/Blog/deleteBlog";
+import { listBlogs } from "../actions/Blog/listBlogs";
+import formatDate from "../utils/formatDate";
 
 // constants
 import { BLOG_CREATE_RESET } from "../constants/blogConstants";
 
 const AdminBlogList = () => {
-  const { page, keyword } = useParams() || 1;
+  const { blogPageNumber } = useParams() || 1;
+  const { keyword } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const {
     loading: loadingBlog,
-    error: errorBlog,
     blogs,
+    pages,
+    page,
   } = useSelector((state) => state.listBlogs);
 
   const { userInfo } = useSelector((state) => state.userLogin);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = useSelector((state) => state.blogDelete);
+  const { loading: loadingDelete, success: successDelete } = useSelector(
+    (state) => state.blogDelete
+  );
 
   const {
     loading: loadingCreate,
-    error: errorCreate,
     success: successCreate,
     blog: createdBlog,
   } = useSelector((state) => state.blogCreate);
@@ -40,9 +47,9 @@ const AdminBlogList = () => {
   useEffect(() => {
     dispatch({ type: BLOG_CREATE_RESET });
     if (successCreate) {
-      navigate(`/admin/certificate-edit/${createdBlog._id}`);
+      navigate(`/admin/blog-edit/${createdBlog._id}`);
     } else {
-      dispatch(listBlogs(keyword, page));
+      dispatch(listBlogs(keyword, blogPageNumber));
     }
   }, [
     dispatch,
@@ -51,7 +58,7 @@ const AdminBlogList = () => {
     successCreate,
     createdBlog,
     navigate,
-    page,
+    blogPageNumber,
     keyword,
   ]);
 
@@ -81,10 +88,7 @@ const AdminBlogList = () => {
         </Col>
       </Row>
       {loadingDelete && <Loader />}
-      {errorBlog && <Message variant="danger">{errorBlog}</Message>}
-      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
-      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
       {loadingBlog ? (
         <Loader />
       ) : (
@@ -98,27 +102,24 @@ const AdminBlogList = () => {
         >
           <thead>
             <tr>
-              <th>ID</th>
               <th>TITLE</th>
-              <th>BLURB</th>
+              <th>Date</th>
               <th>Edit / Delete</th>
             </tr>
           </thead>
           <tbody>
             {blogs.map((blog) => {
-              let date = new Date(blog.dateOfCompletion);
-              console.log(date);
               return (
                 <tr key={blog._id}>
-                  <td>{blog._id}</td>
                   <td>{blog.blogTitle}</td>
-                  <td>{blog.content.blocks[0].text.substring(0, 40)}</td>
+                  <td>{formatDate(blog.createdAt)}</td>
                   <td>
                     <Link to={`/admin/blog-edit/${blog._id}`}>
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
                     </Link>
+
                     <Button
                       variant="danger"
                       className="btn-sm"
@@ -133,6 +134,22 @@ const AdminBlogList = () => {
           </tbody>
         </Table>
       )}
+      <Row style={{ width: "100%", margin: "2% 0" }}>
+        {pages > 1 && (
+          <Pagination style={{ justifyContent: "center" }}>
+            {[...Array(pages).keys()].map((x) => (
+              <Pagination.Item
+                key={x + 1}
+                style={{ color: "#012f41" }}
+                href={`/admin/adminscreen/certificates/${x + 1}`}
+                active={x + 1 === page}
+              >
+                {x + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        )}
+      </Row>
     </Container>
   );
 };

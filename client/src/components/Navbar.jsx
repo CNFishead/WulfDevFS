@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Image, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../actions/userActions";
+import { logout } from "../actions/Auth/logout";
 import logo from "../assets/Images/WulfBrandingLogoLightSmall.png";
 
 // Resume

@@ -1,10 +1,10 @@
 import React from "react";
 import { Pagination } from "react-bootstrap";
 
-const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
+const Paginate = ({ pages, page }) => {
   return (
     pages > 1 && (
-      <Pagination style={{ justifyContent: "end" }}>
+      <Pagination style={{ justifyContent: "center" }}>
         {[...Array(pages).keys()].map((x) => (
           <Pagination.Item
             style={{ color: "#012f41" }}

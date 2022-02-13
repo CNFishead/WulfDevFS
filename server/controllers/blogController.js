@@ -8,13 +8,17 @@ import Blog from "../models/Blog.js";
   @Access: Public
 */
 export const getBlogs = asyncHandler(async (req, res, next) => {
-  const pageSize = 10;
+  const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
+  // Checks if a keyword is passed in,
+  // if it is, it sets the query to query the selected field,
+  // case insensitive.
   const keyword = req.query.keyword
-    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    ? { title: { $regex: req.query.keyword, $options: "i" } }
     : {};
   const count = await Blog.countDocuments({ ...keyword });
   const blogs = await Blog.find({ ...keyword })
+    .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ blogs, page, pages: Math.ceil(count / pageSize) });
@@ -26,19 +30,19 @@ export const getBlogs = asyncHandler(async (req, res, next) => {
   @Access: Private
 */
 export const createBlog = asyncHandler(async (req, res, next) => {
-  const newBlog = await Blog.create(req.body);
-  if (!newBlog) {
-    return next(
-      new ErrorResponse(
-        `There was a problem with creating the blog, try again`,
-        400
-      )
-    );
+  try {
+    const newBlog = await Blog.create(req.body);
+    if (!newBlog) {
+      return res.status(400).json({
+        message: `There was a problem with creating the blog, try again`,
+      });
+    }
+    res.status(200).json(newBlog);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `Something went wrong on the server ${error.message}` });
   }
-  res.status(200).json({
-    success: true,
-    data: newBlog,
-  });
 });
 
 /*
@@ -51,7 +55,7 @@ export const getBlog = asyncHandler(async (req, res, next) => {
   if (!data) {
     return next(
       // Correctly formatted, but not in the database
-      new ErrorResponse(`No Certificate Found with id: ${req.params.id}`, 404)
+      new ErrorResponse(`No Blog Found with id: ${req.params.id}`, 404)
     );
   }
   res.status(200).json({ success: true, data: data });

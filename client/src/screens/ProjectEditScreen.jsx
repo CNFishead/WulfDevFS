@@ -3,12 +3,13 @@ import { Container, Form, Button, FloatingLabel, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { PROJECT_UPDATE_RESET } from "../constants/projectsContstants";
-import { listProjectDetails, updateProject } from "../actions/projectActions";
+import { listProjectDetails } from "../actions/Project/listProjectDetails";
+import { updateProject } from "../actions/Project/updateProject";
 import axios from "axios";
 // import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
-import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
+import Meta from "../components/Meta";
 
 const ProjectEditScreen = ({ match }) => {
   const navigate = useNavigate();
@@ -24,17 +25,11 @@ const ProjectEditScreen = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  const { loading, error, project } = useSelector(
-    (state) => state.projectDetails
+  const { loading, project } = useSelector((state) => state.projectDetails);
+
+  const { loading: loadingUpdate, success: successUpdate } = useSelector(
+    (state) => state.projectUpdate
   );
-
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = useSelector((state) => state.projectUpdate);
-
-  const { userInfo } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (successUpdate) {
@@ -69,8 +64,7 @@ const ProjectEditScreen = ({ match }) => {
         headers: {
           // Has to have the multipart/form-data!
           // Also only Admins can upload a file, need token
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
+          "Content-Type": "multipart/form-data"
         },
       };
 
@@ -101,113 +95,113 @@ const ProjectEditScreen = ({ match }) => {
     );
   };
   return (
-    <Container className="project-edit-container">
-      <Container>
-        {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
-          <FormContainer>
-            <h1 style={{ color: "white" }}>Edit Project</h1>
-            <Container style={{ padding: "5%" }}>
-              <h4 style={{ color: "white" }}>Project Image</h4>
-              <Image src={`${photo}`} fluid />
-            </Container>
-            <Form onSubmit={submitHandler} style={{ color: "black" }}>
-              <Form.Group controlId="name">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Project name"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="name"
-                    value={name}
-                    placeholder="Project Name"
-                    onChange={(e) => setName(e.target.value)}
-                  ></Form.Control>
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group controlId="githubUrl">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Github URL"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    value={githubUrl}
-                    placeholder="Github URL"
-                    onChange={(e) => setGithubUrl(e.target.value)}
-                  ></Form.Control>
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group controlId="liveProjectURL">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Live Project Location"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    value={liveProjectURL}
-                    placeholder="Live Project Location"
-                    onChange={(e) => setLiveProjectURL(e.target.value)}
-                  ></Form.Control>
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group controlId="image" className="mb-3">
-                <Form.Control type="text" value={photo} />
-                <Form.Control type="file" onChange={uploadFileHandler} />
-                {uploading && <Loader />}
-              </Form.Group>
-              <Form.Group controlId="languages">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="What Langauges/Stack did you use?"
-                >
-                  <Form.Control
-                    type="text"
-                    placeholder="What Langauges/Stack did you use?"
-                    value={languages}
-                    onChange={(e) => setLanguages(e.target.value.split(","))}
-                  ></Form.Control>
-                  <Form.Text id="languagesHelpBlock" muted>
-                    Enter the values as comma (,) seperated values
-                  </Form.Text>
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group controlId="description">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Project Description"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    as="textarea"
-                    value={description}
-                    placeholder="Project Name"
-                    style={{ height: "100px" }}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></Form.Control>
-                  <Form.Text id="descriptionHelpBlock" muted>
-                    Please enter a good description of the project, it must be
-                    less than 500 characters. {500 - description.length}/500
-                    characters remaining
-                  </Form.Text>
-                </FloatingLabel>
-              </Form.Group>
-              <Button type="submit" variant="dark" style={{ width: "100%" }}>
-                Update
-              </Button>
-            </Form>
-          </FormContainer>
-        )}
+    <>
+      <Meta title={`WD | Edit Project: ${project.name}`} />
+      <Container className="project-edit-container">
+        <Container>
+          {loadingUpdate && <Loader />}
+          {loading ? (
+            <Loader />
+          ) : (
+            <FormContainer>
+              <h1 style={{ color: "white" }}>Edit Project</h1>
+              <Container style={{ padding: "5%" }}>
+                <h4 style={{ color: "white" }}>Project Image</h4>
+                <Image src={`${photo}`} fluid />
+              </Container>
+              <Form onSubmit={submitHandler} style={{ color: "black" }}>
+                <Form.Group controlId="name">
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="Project name"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="name"
+                      value={name}
+                      placeholder="Project Name"
+                      onChange={(e) => setName(e.target.value)}
+                    ></Form.Control>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group controlId="githubUrl">
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="Github URL"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="text"
+                      value={githubUrl}
+                      placeholder="Github URL"
+                      onChange={(e) => setGithubUrl(e.target.value)}
+                    ></Form.Control>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group controlId="liveProjectURL">
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="Live Project Location"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="text"
+                      value={liveProjectURL}
+                      placeholder="Live Project Location"
+                      onChange={(e) => setLiveProjectURL(e.target.value)}
+                    ></Form.Control>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group controlId="image" className="mb-3">
+                  <Form.Control type="text" value={photo} />
+                  <Form.Control type="file" onChange={uploadFileHandler} />
+                  {uploading && <Loader />}
+                </Form.Group>
+                <Form.Group controlId="languages">
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="What Langauges/Stack did you use?"
+                  >
+                    <Form.Control
+                      type="text"
+                      placeholder="What Langauges/Stack did you use?"
+                      value={languages}
+                      onChange={(e) => setLanguages(e.target.value.split(","))}
+                    ></Form.Control>
+                    <Form.Text id="languagesHelpBlock" muted>
+                      Enter the values as comma (,) seperated values
+                    </Form.Text>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group controlId="description">
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="Project Description"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      as="textarea"
+                      value={description}
+                      placeholder="Project Name"
+                      style={{ height: "100px" }}
+                      onChange={(e) => setDescription(e.target.value)}
+                    ></Form.Control>
+                    <Form.Text id="descriptionHelpBlock" muted>
+                      Please enter a good description of the project, it must be
+                      less than 500 characters. {500 - description.length}/500
+                      characters remaining
+                    </Form.Text>
+                  </FloatingLabel>
+                </Form.Group>
+                <Button type="submit" variant="dark" style={{ width: "100%" }}>
+                  Update
+                </Button>
+              </Form>
+            </FormContainer>
+          )}
+        </Container>
       </Container>
-    </Container>
+    </>
   );
 };
 

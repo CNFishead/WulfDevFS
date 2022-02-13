@@ -9,7 +9,7 @@ const Footer = () => {
 
   let newdate = month + "/" + year;
   return (
-    <footer style={{ sticky: "bottom" }}>
+    <footer style={{ sticky: "bottom", textAlign: "center" }}>
       <Container className="social-links">
         {socials.map((social, indx) => {
           return (

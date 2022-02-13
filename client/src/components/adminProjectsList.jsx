@@ -1,41 +1,44 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Button, Table, Col, Row, Container } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Col,
+  Row,
+  Container,
+  Pagination,
+} from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 // components
-import Message from "./Message";
 import Loader from "./Loader";
 // actions
-import {
-  listProjects,
-  createProject,
-  deleteProject,
-} from "../actions/projectActions";
+import { listProjects } from "../actions/Project/listProjects";
+import { createProject } from "../actions/Project/createProject";
+import { deleteProject } from "../actions/Project/deleteProject";
 // constants
 import { PROJECT_CREATE_RESET } from "../constants/projectsContstants";
 
 const AdminProjectsList = () => {
-  const { page, keyword } = useParams() || 1;
+  const { pageNumber } = useParams() || 1;
+  const { keyword } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const {
     loading: loadingProject,
-    error: errorProject,
     projects,
+    pages,
+    page: projectPage,
   } = useSelector((state) => state.getProjects);
 
   const { userInfo } = useSelector((state) => state.userLogin);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = useSelector((state) => state.projectDelete);
+  const { loading: loadingDelete, success: successDelete } = useSelector(
+    (state) => state.projectDelete
+  );
 
   const {
     loading: loadingCreate,
-    error: errorCreate,
     success: successCreate,
     project: createdProject,
   } = useSelector((state) => state.projectCreate);
@@ -45,7 +48,7 @@ const AdminProjectsList = () => {
     if (successCreate) {
       navigate(`/admin/projectedit/${createdProject._id}`);
     } else {
-      dispatch(listProjects(keyword, page));
+      dispatch(listProjects(keyword, pageNumber));
     }
   }, [
     dispatch,
@@ -54,7 +57,7 @@ const AdminProjectsList = () => {
     successCreate,
     createdProject,
     navigate,
-    page,
+    pageNumber,
     keyword,
   ]);
 
@@ -84,10 +87,8 @@ const AdminProjectsList = () => {
         </Col>
       </Row>
       {loadingDelete && <Loader />}
-      {errorProject && <Message variant="danger">{errorProject}</Message>}
-      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+
       {loadingCreate && <Loader />}
-      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
       {loadingProject ? (
         <Loader />
       ) : (
@@ -101,11 +102,9 @@ const AdminProjectsList = () => {
         >
           <thead>
             <tr>
-              <th>ID</th>
               <th>NAME</th>
               <th>GITHUB LINK</th>
               <th>LANGUAGES/STACK</th>
-              <th>LIVE PROJECT URL</th>
               <th>IMAGE PATH</th>
               <th>Edit / Delete</th>
             </tr>
@@ -114,7 +113,6 @@ const AdminProjectsList = () => {
             {projects.map((project) => {
               return (
                 <tr key={project._id}>
-                  <td>{project._id}</td>
                   <td>{project.name}</td>
                   <td>{project.githubUrl}</td>
                   <td>
@@ -132,7 +130,6 @@ const AdminProjectsList = () => {
                       );
                     })}
                   </td>
-                  <td>{project.liveProjectURL}</td>
                   <td>{project.photo}</td>
                   <td>
                     <Link to={`/admin/projectedit/${project._id}`}>
@@ -154,6 +151,22 @@ const AdminProjectsList = () => {
           </tbody>
         </Table>
       )}
+      <Row style={{ width: "100%", margin: "2% 0" }}>
+        {pages > 1 && (
+          <Pagination style={{ justifyContent: "center" }}>
+            {[...Array(pages).keys()].map((x) => (
+              <Pagination.Item
+                key={x + 1}
+                style={{ color: "#012f41" }}
+                href={`/admin/adminscreen/projects/${x + 1}`}
+                active={x + 1 === projectPage}
+              >
+                {x + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        )}
+      </Row>
     </Container>
   );
 };

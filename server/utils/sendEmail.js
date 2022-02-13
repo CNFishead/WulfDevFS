@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
-    service: "hotmail",
+    host: "smtp-mail.outlook.com", // hostname
     auth: {
       user: process.env.STMP_EMAIL,
       pass: process.env.STMP_PASSWORD,
@@ -13,7 +13,7 @@ const sendEmail = async (options) => {
     from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    html: options.message,
   };
 
   const info = await transporter.sendMail(message);

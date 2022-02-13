@@ -107,7 +107,9 @@ const updateDetails = asyncHandler(async (req, res, nex) => {
 const forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    return next(new ErrorResponse(`There is no user with that Email`, 404));
+    return res
+      .status(404)
+      .json({ message: `There is no user with that Email` });
   }
   // Get reset token
   const resetToken = await user.getResetPasswordToken();
@@ -133,7 +135,9 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save({ validateBeforeSave: false });
-    return next(new ErrorResponse("Email could not be sent", 500));
+    return res
+      .status(500)
+      .json({ message: `Email could not be sent, ${error}` });
   }
 });
 
@@ -153,7 +157,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   });
   // doesnt exist or password token expired
   if (!user) {
-    return next(new ErrorResponse("Invalid Token", 400));
+    return res.status(200).json({ message: "Invalid Token" });
   }
   user.password = req.body.password;
   user.resetPasswordToken = undefined;

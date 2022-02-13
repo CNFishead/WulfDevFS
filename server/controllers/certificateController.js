@@ -10,13 +10,14 @@ import slugify from "slugify";
   @Access: Public
 */
 export const getCertificates = asyncHandler(async (req, res, next) => {
-  const pageSize = 10;
+  const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }
     : {};
   const count = await Certificate.countDocuments({ ...keyword });
   const certificates = await Certificate.find({ ...keyword })
+    .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ certificates, page, pages: Math.ceil(count / pageSize) });
@@ -27,15 +28,22 @@ export const getCertificates = asyncHandler(async (req, res, next) => {
   @Route:  GET /api/cert
   @Access: Private
 */
-export const getCertificate = asyncHandler(async (req, res, next) => {
-  const data = await Certificate.findById(req.params.id);
-  if (!data) {
-    return next(
-      // Correctly formatted, but not in the database
-      new ErrorResponse(`No Certificate Found with id: ${req.params.id}`, 404)
-    );
+export const getCertificate = asyncHandler(async (req, res) => {
+  try {
+    const data = await Certificate.findById(req.params.id);
+    if (!data) {
+      return res
+        .status(400)
+        .json({ message: `No Certificate Found with id: ${req.params.id}` });
+    }
+    res.status(200).json(data);
+  } catch (error) {
+    console.error(error.message);
+    if (error.kind === "ObjectId") {
+      return res.status(404).json({ message: "Cert not found" });
+    }
+    res.status(500).json({ message: "Server Error" });
   }
-  res.status(200).json({ success: true, data: data });
 });
 
 /* 

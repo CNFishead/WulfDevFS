@@ -10,6 +10,7 @@ import { PROJECT_CREATE_RESET } from "../constants/projectsContstants";
 import AdminCertList from "../components/AdminCertList";
 import AdminProjectsList from "../components/adminProjectsList";
 import AdminBlogList from "../components/AdminBlogList";
+import Meta from "../components/Meta";
 
 const AdminScreen = () => {
   const dispatch = useDispatch();
@@ -25,11 +26,14 @@ const AdminScreen = () => {
   }, [dispatch, userInfo, navigate]);
 
   return (
-    <Container fluid className="admin-screen">
-      <AdminProjectsList />
-      <AdminCertList />
-      <AdminBlogList />
-    </Container>
+    <>
+      <Meta title={`WD | Admin Panel`} />
+      <Container fluid className="admin-screen">
+        <AdminProjectsList />
+        <AdminCertList />
+        <AdminBlogList />
+      </Container>
+    </>
   );
 };
 

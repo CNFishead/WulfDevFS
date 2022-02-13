@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 // Components
-import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { USER_LOGIN_SUCCESS } from "../constants/userConstants";
+import { setAlert } from "../actions/alert";
 
 const ResetPassword = () => {
   // get param token
@@ -21,8 +21,6 @@ const ResetPassword = () => {
   const [passConfirm, setPassConfirm] = useState("");
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
 
   // Pull items from state
   const userLogin = useSelector((state) => state.userLogin);
@@ -39,28 +37,27 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       if (password === passConfirm) {
-        const data = await axios({
+        const { data } = await axios({
           method: "PUT",
           url: `/api/auth/resetpassword/${resettoken}`,
           data: { password },
         });
         dispatch({
           type: USER_LOGIN_SUCCESS,
-          payload: data.data,
+          payload: data,
         });
+        dispatch(setAlert(`Password Reset`, "success"));
       }
-      setError(!error);
-      setMessage(`Passwords have to match`);
+      setLoading(false);
+      dispatch(setAlert(`Passwords Have to Match`, "danger"));
     } catch (e) {
-      console.log(e);
-      setError(!error);
-      setMessage(`Password Reset Failed... ${e.message}`);
+      setLoading(false);
+      dispatch(setAlert(`Password Reset Failed... ${e.message}`, "danger"));
     }
   };
   return (
     <Container>
       <FormContainer>
-        {error && <Message variant="danger">{message}</Message>}
         <h1 style={{ color: "white" }}>Enter New Password</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="password">

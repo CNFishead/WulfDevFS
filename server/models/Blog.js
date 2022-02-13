@@ -8,7 +8,20 @@ const BlogSchema = mongoose.Schema(
       trim: true,
     },
     content: {
-      type: Object,
+      type: String,
+    },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    blogImageUrl: {
+      type: String,
+      default: "/images/no-photo.jpg",
+    },
+    description: {
+      type: String,
+      maxlength: [500, "Description cannot be more than 500 characters long"],
+      required: true,
     },
   },
   { timestamps: true }

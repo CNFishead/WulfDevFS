@@ -1,41 +1,43 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Button, Table, Col, Row, Container } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Col,
+  Row,
+  Container,
+  Pagination,
+} from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 // components
-import Message from "./Message";
 import Loader from "./Loader";
 // actions
-import {
-  listCertificates,
-  createCertificate,
-  deleteCertificate,
-} from "../actions/certificateActions";
+import { createCertificate } from "../actions/Certificate/createCertificate";
+import { deleteCertificate } from "../actions/Certificate/deleteCertificate";
+import { listCertificates } from "../actions/Certificate/listCertificates";
 // constants
 import { CERTIFICATE_CREATE_RESET } from "../constants/certConstants";
 
 const AdminProjectsList = () => {
-  const { page, keyword } = useParams() || 1;
+  const { certPageNumber } = useParams() || 1;
+  const { keyword } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const {
     loading: loadingCertificate,
-    error: errorCertificate,
     certificates,
+    pages,
+    page,
   } = useSelector((state) => state.listCerts);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = useSelector((state) => state.certDelete);
+  const { loading: loadingDelete, success: successDelete } = useSelector(
+    (state) => state.certDelete
+  );
 
   const {
     loading: loadingCreate,
-    error: errorCreate,
     success: successCreate,
     certificate: createdCertificate,
   } = useSelector((state) => state.certCreate);
@@ -45,17 +47,16 @@ const AdminProjectsList = () => {
     if (successCreate) {
       navigate(`/admin/certificate-edit/${createdCertificate._id}`);
     } else {
-      dispatch(listCertificates(keyword, page));
+      dispatch(listCertificates(keyword, certPageNumber));
     }
+    // eslint-disable-next-line
   }, [
     dispatch,
-    userInfo,
-    successDelete,
-    successCreate,
-    createdCertificate,
-    navigate,
-    page,
     keyword,
+    navigate,
+    certPageNumber,
+    successCreate,
+    successDelete,
   ]);
 
   const createCertHandler = () => {
@@ -84,12 +85,7 @@ const AdminProjectsList = () => {
         </Col>
       </Row>
       {loadingDelete && <Loader />}
-      {errorCertificate && (
-        <Message variant="danger">{errorCertificate}</Message>
-      )}
-      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
-      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
       {loadingCertificate ? (
         <Loader />
       ) : (
@@ -103,9 +99,7 @@ const AdminProjectsList = () => {
         >
           <thead>
             <tr>
-              <th>ID</th>
               <th>NAME</th>
-              <th>ISSUING AUTHORITY</th>
               <th>DATE OF COMPLETION</th>
               <th>IMAGE PATH</th>
               <th>Edit / Delete</th>
@@ -117,9 +111,7 @@ const AdminProjectsList = () => {
               console.log(date);
               return (
                 <tr key={certificate._id}>
-                  <td>{certificate._id}</td>
                   <td>{certificate.name}</td>
-                  <td>{certificate.issuingAuthority}</td>
                   {/* Date, starts at zero, so add 1 for it to display correctly */}
                   <td>{`${date.getMonth() + 1}-${
                     date.getDate() + 1
@@ -145,6 +137,22 @@ const AdminProjectsList = () => {
           </tbody>
         </Table>
       )}
+      <Row style={{ width: "100%", margin: "2% 0" }}>
+        {pages > 1 && (
+          <Pagination style={{ justifyContent: "center" }}>
+            {[...Array(pages).keys()].map((x) => (
+              <Pagination.Item
+                key={x + 1}
+                style={{ color: "#012f41" }}
+                href={`/admin/adminscreen/certificates/${x + 1}`}
+                active={x + 1 === page}
+              >
+                {x + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        )}
+      </Row>
     </Container>
   );
 };
