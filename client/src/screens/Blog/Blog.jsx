@@ -205,17 +205,22 @@ const Blog = () => {
                   height: 500,
                   menubar: "insert",
                   plugins: [
-                    "advlist autolink lists link image charmap print preview anchor",
+                    "advlist autolink lists link image charmap print preview anchor codesample",
                     "searchreplace visualblocks code fullscreen",
                     "insertdatetime media table paste code help wordcount autolink",
                   ],
                   toolbar:
-                    "undo redo | formatselect | image |" +
+                    "undo redo | formatselect | image | codesample |" +
                     "bold italic backcolor | alignleft aligncenter " +
                     "alignright alignjustify | bullist numlist outdent indent | " +
                     "removeformat | help",
                   content_style:
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  codesample_languages: [
+                    { text: "HTML/XML", value: "markup" },
+                    { text: "JavaScript", value: "javascript" },
+                    { text: "CSS", value: "css" },
+                  ],
                 }}
               />
               <Container style={{ paddingTop: "5%", textAlign: "center" }}>
