@@ -207,7 +207,7 @@ const BlogEditScreen = () => {
                     label="Featured Article?"
                     value={isFeatured}
                     onChange={(e) =>
-                      setBlogData({ ...blogData, isFeatured: e.target.value })
+                      setBlogData({ ...blogData, isFeatured: !isFeatured })
                     }
                     style={{ color: "white" }}
                   />
@@ -218,26 +218,34 @@ const BlogEditScreen = () => {
               </FormContainer>
               <Editor
                 onInit={(evt, editor) => (editorRef.current = editor)}
-                initialValue={`${parse(blogData.content)}`}
+                initialValue={parse(blogData.content)}
                 apiKey="dh9kclzz1mh67rg0cyvkmrqs6rso8b5aunovwvd57l9fz4qw"
                 init={{
                   height: 500,
                   menubar: "insert",
                   plugins: [
-                    "advlist autolink lists link image charmap print preview anchor",
+                    "advlist autolink lists link image charmap print preview anchor codesample",
                     "searchreplace visualblocks code fullscreen",
                     "insertdatetime media table paste code help wordcount autolink",
                   ],
                   toolbar:
-                    "undo redo | formatselect | image |" +
+                    "undo redo | formatselect | image | codesample |" +
                     "bold italic backcolor | alignleft aligncenter " +
                     "alignright alignjustify | bullist numlist outdent indent | " +
                     "removeformat | help",
                   content_style:
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  codesample_languages: [
+                    { text: "HTML/XML", value: "markup" },
+                    { text: "JavaScript", value: "javascript" },
+                    { text: "CSS", value: "css" },
+                  ],
                 }}
               />
-              <Container style={{ paddingTop: "5%", textAlign: "center" }}>
+              <Container
+                style={{ paddingTop: "5%", textAlign: "center" }}
+                fluid
+              >
                 <Button variant="primary" onClick={handleShow}>
                   See the article
                 </Button>
@@ -251,7 +259,7 @@ const BlogEditScreen = () => {
                       <h6>Description</h6>
                       <p>{description}</p>
                     </div>
-                    <div>
+                    <div className="article-content-container">
                       {editorRef.current &&
                         parse(editorRef.current.getContent())}
                     </div>

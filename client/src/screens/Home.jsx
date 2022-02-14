@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 //importing typewriter-effect
 import Typewriter from "typewriter-effect";
 import { Col, Container, Row } from "react-bootstrap";
 import Meta from "../components/Meta";
 
+// actions
+import { useDispatch, useSelector } from "react-redux";
+import BlogItem from "./Blog/BlogItem";
+import { getFeaturedArticles } from "../actions/Blog/getFeaturedArticles";
+import { listProjects } from "../actions/Project/listProjects";
+import { Link } from "react-router-dom";
+import ProjectItem from "./ProjectItem";
+
 const Home = () => {
+  const dispatch = useDispatch();
+  const { blogs } = useSelector((state) => state.listBlogs);
+  const { projects } = useSelector((state) => state.getProjects);
+
+  const mostRecentProject = projects[0];
+  console.log(mostRecentProject);
+  useEffect(() => {
+    dispatch(listProjects());
+    dispatch(getFeaturedArticles());
+  }, [dispatch]);
   return (
     <>
       <Meta title={`WD | Home`} />
@@ -37,8 +55,30 @@ const Home = () => {
               }}
             />
           </div>
-          <Row>
-            <Col></Col>
+          <Row style={{ marginTop: "2%" }}>
+            <div style={{ textAlign: "center", padding: "5% 0" }}>
+              <h4>Featured Articles</h4>
+              <Link to="/list-blogs" style={{ textDecoration: "none" }}>
+                See more
+              </Link>
+            </div>
+            {blogs.map((b) => {
+              if (b.isFeatured === true) {
+                return <BlogItem blog={b} />;
+              }
+              return <div></div>;
+            })}
+          </Row>
+          <Row style={{ marginTop: "2%" }}>
+            <div style={{ textAlign: "center", padding: "5% 0" }}>
+              <h4>Most Recent Project</h4>
+              <Link to="/projects" style={{ textDecoration: "none" }}>
+                See more
+              </Link>
+            </div>
+            {mostRecentProject !== undefined && (
+              <ProjectItem project={mostRecentProject} />
+            )}
           </Row>
         </div>
       </Container>

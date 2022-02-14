@@ -20,7 +20,11 @@ export const getBlogs = asyncHandler(async (req, res, next) => {
   const blogs = await Blog.find({ ...keyword })
     .sort({ createdAt: -1 })
     .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    .skip(pageSize * (page - 1))
+    // we are choosing to not send the content part,
+    // since the article can get quite large
+    // this route is mostly for displaying the article, not reading it
+    .select("-content");
   res.json({ blogs, page, pages: Math.ceil(count / pageSize) });
 });
 
@@ -51,14 +55,45 @@ export const createBlog = asyncHandler(async (req, res, next) => {
   @Access: Private
 */
 export const getBlog = asyncHandler(async (req, res, next) => {
-  const data = await Blog.findById(req.params.id);
-  if (!data) {
-    return next(
-      // Correctly formatted, but not in the database
-      new ErrorResponse(`No Blog Found with id: ${req.params.id}`, 404)
-    );
+  try {
+    const data = await Blog.findById(req.params.id);
+    if (!data) {
+      return res
+        .status(400)
+        .json({ message: `No Blog Found with id: ${req.params.id}` });
+    }
+    res.status(200).json({ success: true, data: data });
+  } catch (error) {
+    if (error.kind === "ObjectId") {
+      return res
+        .status(404)
+        .json({ message: `No Blog Found with id: ${req.params.id}` });
+    }
+    res.status(500).json({ message: "Server Error" });
   }
-  res.status(200).json({ success: true, data: data });
+});
+
+/*
+  @Desc:   Return featured blogs
+  @Path:   GET /api/blog/featured
+  @Access: Private
+*/
+export const getFeaturedBlogs = asyncHandler(async (req, res) => {
+  try {
+    const blogs = await Blog.find({ isFeatured: true })
+      .sort({ createdAt: -1 })
+      .limit(2)
+      // we are choosing to not send the content part,
+      // since the article can get quite large
+      // this route is mostly for displaying the article, not reading it
+      .select("-content");
+    if (!blogs) {
+      return res.status(400).json({ message: `No Featured Articles Found ` });
+    }
+    res.status(200).json({ blogs });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 /*
   @Desc:   Delete a single blog article

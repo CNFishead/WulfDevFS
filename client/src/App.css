@@ -287,7 +287,31 @@ h4 {
   box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
 }
 
-/* ---------------------------------------------------Certificates Page --------------------------------------------------------- */
+/* ---------------------------------------------------Article Page --------------------------------------------------------------------------- */
+.article-container {
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/dd22558f-c4bb-4626-ac16-b2c0e87d6492/d6j5zxw-c2f2913c-0cb6-4539-835e-03eecaae8380.png/v1/fill/w_1024,h_1326,q_75,strp/old_paper_by_walrus159-d6j5zxw.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9kZDIyNTU4Zi1jNGJiLTQ2MjYtYWMxNi1iMmMwZTg3ZDY0OTIvZDZqNXp4dy1jMmYyOTEzYy0wY2I2LTQ1MzktODM1ZS0wM2VlY2FhZTgzODAucG5nIiwid2lkdGgiOiI8PTEwMjQiLCJoZWlnaHQiOiI8PTEzMjYifV1dfQ.YT7VHNBgfJm5uB_uoLT_2lrlRJ2nZCX3oHhmR5rnmYc");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.article-content-container {
+  padding: 5%;
+}
+.banner-container {
+  width: 75%;
+  padding: 5%;
+  margin: 0 auto;
+}
+.article-content-container img {
+  width: 100%;
+  max-height: 600px;
+}
+.article-content-container code {
+  background-color: rgb(202, 202, 202);
+  padding: 0 5%;
+}
+
+/* ---------------------------------------------------Certificates Page --------------=============------------------------------------------- */
 .certificate-card {
   background-color: rgba(0, 0, 0, 0) !important;
   box-shadow: inset 5px 10px 5px #012138, inset -10px -0px 20px #000102;
@@ -315,6 +339,12 @@ h4 {
   }
   .aboutMe img {
     width: 75%;
+  }
+  .article-container {
+    padding: 10%;
+  }
+  .article-content-container img {
+    max-height: 350px;
   }
 }
 
@@ -352,6 +382,9 @@ h4 {
   }
 }
 @media (max-width: 480px) {
+  .article-container {
+    background-color: #f1e8cd;
+  }
   footer {
     margin: 10% 0;
   }
@@ -365,6 +398,10 @@ h4 {
     font-size: 2rem;
     height: 40vh;
     margin: 0 auto;
+  }
+
+  .article-content-container img {
+    max-height: 400px;
   }
 }
 @media (max-device-width: 380px) {
@@ -381,6 +418,9 @@ h4 {
     width: auto;
     padding: 2%;
   }
+  .social-links {
+    text-align: center;
+  }
   .typeWriterParent {
     margin: 0 auto;
     font-size: 2rem;
@@ -388,6 +428,10 @@ h4 {
   }
   .project-container-title {
     font-size: 1.25rem;
+  }
+
+  .article-content-container img {
+    max-height: 320px;
   }
 }
 
@@ -397,5 +441,12 @@ h4 {
   }
   .nav-links a {
     margin: 5% 2%;
+  }
+  .banner-container {
+    padding-top: 10%;
+  }
+
+  .article-content-container code {
+    padding: 0;
   }
 }

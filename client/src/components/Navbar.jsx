@@ -70,6 +70,11 @@ const Header = () => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
+          <Nav.Link as={Link} to="/list-blogs">
+            Blog
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
           <Nav.Link href={resume} download>
             <i className="fas fa-file-download" /> Resume
           </Nav.Link>

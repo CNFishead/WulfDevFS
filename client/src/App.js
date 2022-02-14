@@ -22,6 +22,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 import AdminRoutes from "./components/Routes/AdminRoutes";
 import Alert from "./components/Alert";
+import Article from "./screens/Blog/Article";
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -34,6 +35,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/list-blogs" element={<Blogs />} />
+        <Route path="/blog/article/:id" element={<Article />} />
         {/* Admin Routes and Admin Screen */}
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/login" element={<LoginScreen />} />
