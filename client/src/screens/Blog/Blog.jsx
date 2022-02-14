@@ -188,7 +188,7 @@ const Blog = () => {
                     label="Featured Article?"
                     value={isFeatured}
                     onChange={(e) =>
-                      setBlogData({ ...blogData, isFeatured: e.target.value })
+                      setBlogData({ ...blogData, isFeatured: !isFeatured })
                     }
                     style={{ color: "white" }}
                   />
