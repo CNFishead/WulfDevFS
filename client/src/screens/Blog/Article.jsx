@@ -21,7 +21,7 @@ const Article = () => {
     <Container className="article-container">
       {loading ? (
         <Loader />
-      ) : !blog ? (
+      ) : blog ? (
         <>
           <div className="banner-container">
             <Image
