@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 //importing typewriter-effect
 import Typewriter from "typewriter-effect";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Meta from "../components/Meta";
 
 // actions
@@ -18,7 +18,7 @@ const Home = () => {
   const { projects } = useSelector((state) => state.getProjects);
 
   const mostRecentProject = projects[0];
-  console.log(mostRecentProject);
+  
   useEffect(() => {
     dispatch(listProjects());
     dispatch(getFeaturedArticles());

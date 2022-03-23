@@ -61,7 +61,6 @@ const BlogEditScreen = () => {
     setShow(true);
     if (editorRef.current) {
       setBlogData({ ...blogData, content: editorRef.current.getContent() });
-      console.log(editorRef.current.getContent());
     }
   };
   // handles the creation of a new blog.

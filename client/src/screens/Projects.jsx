@@ -6,8 +6,8 @@ import Paginate from "../components/Paginate";
 // actions
 import { listProjects } from "../actions/Project/listProjects";
 import { deleteProject } from "../actions/Project/deleteProject";
-import { Col, Container, Image, Row, Nav } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Container, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import Meta from "../components/Meta";
 import ProjectItem from "./ProjectItem";
 
@@ -23,16 +23,10 @@ const Projects = () => {
     page: projectPage,
     pages,
   } = useSelector((state) => state.getProjects);
-  const { userInfo } = useSelector((state) => state.userLogin);
   const { loading: loadingDelete, success: successDelete } = useSelector(
     (state) => state.projectDelete
   );
 
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteProject(id));
-    }
-  };
   useEffect(() => {
     dispatch(listProjects(keyword, pageNumber));
     // eslint-disable-next-line

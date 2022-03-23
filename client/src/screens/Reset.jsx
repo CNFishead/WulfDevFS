@@ -28,7 +28,6 @@ const Reset = () => {
       }
       dispatch(setAlert(`Email sent successfully`, "success"));
     } catch (e) {
-      console.log(e);
       setLoading(false);
       dispatch(setAlert(e.message, "danger"));
     }

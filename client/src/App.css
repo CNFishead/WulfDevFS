@@ -1,3 +1,5 @@
+@import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+
 /* ------------------------------------------------------- Global Styles ------------------------------------------------------------ */
 * {
   box-sizing: border-box;
@@ -301,14 +303,16 @@ h4 {
   width: 75%;
   padding: 5%;
   margin: 0 auto;
+  text-align: center;
 }
+pre {
+  background-color: rgb(202, 202, 202);
+  padding: 2%;
+}
+
 .article-content-container img {
   width: 100%;
   max-height: 600px;
-}
-.article-content-container code {
-  background-color: rgb(202, 202, 202);
-  padding: 0 5%;
 }
 
 /* ---------------------------------------------------Certificates Page --------------=============------------------------------------------- */

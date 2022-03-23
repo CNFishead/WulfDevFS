@@ -19,7 +19,7 @@ export const protect = asyncHandler(async (req, res, next) => {
 
   // Make sure token exists
   if (!token) {
-    return next(new ErrorResponse(`Not authorized to access this route`, 401));
+    return next(new ErrorResponse(`Not authorized, token failed`, 401));
   }
   try {
     // verify Token
@@ -30,9 +30,7 @@ export const protect = asyncHandler(async (req, res, next) => {
     req.user = await User.findById(decoded.id);
     next();
   } catch (e) {
-    return next(
-      new ErrorResponse(`Not authorized to access this route: ${e}`, 401)
-    );
+    return next(new ErrorResponse(`Not authorized, token failed`, 403));
   }
 });
 
@@ -41,12 +39,7 @@ export const authorize = (...roles) => {
   return (req, res, next) => {
     // check to see if role is included in the roles passed in
     if (!roles.includes(req.user.role)) {
-      return next(
-        new ErrorResponse(
-          `User role ${req.user.role} is not authorized to access this route`,
-          403
-        )
-      );
+      return next(new ErrorResponse(`not authorized admin`, 403));
     }
     next();
   };

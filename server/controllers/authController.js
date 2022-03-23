@@ -36,7 +36,9 @@ const login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please send an email and a Password`, 400));
   }
   // Check if user in system
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email: email.toLowerCase() }).select(
+    "+password"
+  );
   if (!user) {
     return next(new ErrorResponse(`Invalid Credentials`, 401));
   }

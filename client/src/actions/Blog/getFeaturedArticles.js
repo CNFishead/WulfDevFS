@@ -15,7 +15,6 @@ export const getFeaturedArticles = () => async (dispatch) => {
       method: "GET",
       url: `/api/blog/featured`,
     });
-    console.log(data);
     // on success dispatch request success
     dispatch({
       type: BLOG_LIST_SUCCESS,

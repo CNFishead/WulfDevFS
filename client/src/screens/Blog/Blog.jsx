@@ -56,7 +56,6 @@ const Blog = () => {
     setShow(true);
     if (editorRef.current) {
       setBlogData({ ...blogData, content: editorRef.current.getContent() });
-      console.log(editorRef.current.getContent());
     }
   };
 
