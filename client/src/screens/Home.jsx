@@ -18,7 +18,7 @@ const Home = () => {
   const { projects } = useSelector((state) => state.getProjects);
 
   const mostRecentProject = projects[0];
-  
+
   useEffect(() => {
     dispatch(listProjects());
     dispatch(getFeaturedArticles());
@@ -62,12 +62,13 @@ const Home = () => {
                 See more
               </Link>
             </div>
-            {blogs.map((b) => {
-              if (b.isFeatured === true) {
-                return <BlogItem blog={b} />;
-              }
-              return <div></div>;
-            })}
+            {blogs &&
+              blogs.map((b) => {
+                if (b.isFeatured === true) {
+                  return <BlogItem blog={b} />;
+                }
+                return <div></div>;
+              })}
           </Row>
           <Row style={{ marginTop: "2%" }}>
             <div style={{ textAlign: "center", padding: "5% 0" }}>
